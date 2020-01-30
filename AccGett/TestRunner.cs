@@ -12,6 +12,7 @@ namespace AccGett
         public TestRunner()
         {
             StandartCalculatorTests standardCalcTests = new StandartCalculatorTests();
+
             //Activator.CreateInstance("AccGett.Tests.StandartCalculatorTests", "StandartCalculatorTests");            
         }
     }
