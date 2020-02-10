@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Automation;
 using System.Windows.Input;
 
-namespace AccGett
+namespace EasyAutomation
 {
     class Program
     {

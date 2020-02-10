@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Automation;
 
-namespace AccGett.Utility
+namespace EasyAutomation.Utility
 {
     public static class SearchHelper
     {

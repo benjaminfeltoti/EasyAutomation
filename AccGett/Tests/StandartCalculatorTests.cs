@@ -1,9 +1,9 @@
 ﻿using System;
-using AccGett.Utility;
-using AccGett.CalculatorViews;
+using EasyAutomation.Utility;
+using EasyAutomation.CalculatorViews;
 using System.Threading;
 
-namespace AccGett.Tests
+namespace EasyAutomation.Tests
 {
     public class StandartCalculatorTests
     {

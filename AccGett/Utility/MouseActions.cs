@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AccGett.Utility
+namespace EasyAutomation.Utility
 {
     public class MouseActions
     {

@@ -1,11 +1,11 @@
-﻿using AccGett.Tests;
+﻿using EasyAutomation.Tests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AccGett
+namespace EasyAutomation
 {
     public class TestRunner
     {
