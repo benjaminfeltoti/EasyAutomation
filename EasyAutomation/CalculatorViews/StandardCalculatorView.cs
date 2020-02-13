@@ -1,14 +1,14 @@
 ﻿using EasyAutomation.Utility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 using System.Windows.Automation;
 
 namespace EasyAutomation.CalculatorViews
 {
-    public class StandardCalculatorView
+    //[DataContract]
+    //[Serializable()]
+    //    : ISerializable
+    public class StandardCalculatorView 
     {
         private AutomationElement m_RootWindow;
 
@@ -17,8 +17,8 @@ namespace EasyAutomation.CalculatorViews
 
         }
 
-        public AutomationElement rootWindow => m_RootWindow ?? AutomationElement.RootElement.FindFirst(
-            TreeScope.Descendants, SearchHelper.GetConditionByName("Calculator"));
+        public AutomationElement rootWindow => m_RootWindow ?? (m_RootWindow = AutomationElement.RootElement.FindFirst(
+            TreeScope.Descendants, SearchHelper.GetConditionByName("Calculator")));
 
         public AutomationElement CalculatorResults => rootWindow.FindFirst(
             TreeScope.Descendants, SearchHelper.GetConditionByAutomationId("CalculatorResults"));
@@ -67,5 +67,6 @@ namespace EasyAutomation.CalculatorViews
 
         public AutomationElement NineButton => NumberPad.FindFirst(
             TreeScope.Descendants, SearchHelper.GetConditionByName("Nine"));
+
     }
 }
