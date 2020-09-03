@@ -2,6 +2,8 @@
 using EasyAutomation.Utility;
 using EasyAutomation.CalculatorViews;
 using System.Threading;
+using EasyAutomation.Core;
+using System.Globalization;
 
 namespace EasyAutomation.Tests
 {
@@ -27,6 +29,13 @@ namespace EasyAutomation.Tests
 
         public void Setup()
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+
+            System.Diagnostics.Process p = System.Diagnostics.Process.Start("C:\\Windows\\System32\\calc.exe");
+            
+            p.WaitForInputIdle();
+
             standardCalculatorView = new StandardCalculatorView();
         }
 
@@ -48,10 +57,17 @@ namespace EasyAutomation.Tests
 
             //Assert if it is 1.
             Thread.Sleep(500);
+
+            /*
             if (standardCalculatorView.CalculatorResults.Current.Name == "Display is 1")
             {
                 Console.WriteLine("Brafó");
-            }            
+            }  */
+
+            if (Try.Until(() => standardCalculatorView.CalculatorResults.Current.Name == "Display is 1"))
+            {
+                Console.WriteLine("Brafó");
+            }
         }
     }
 }
