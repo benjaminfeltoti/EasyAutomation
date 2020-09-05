@@ -15,8 +15,6 @@ namespace EasyAutomation
     {
         public static void Main(string[] args)
         {
-            
-
             TestRunner testRunner = new TestRunner();
             
             Console.ReadLine();

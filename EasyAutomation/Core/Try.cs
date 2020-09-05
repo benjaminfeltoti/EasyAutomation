@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Automation;
 
 namespace EasyAutomation.Core
 {
@@ -24,10 +25,12 @@ namespace EasyAutomation.Core
                     try
                     {
                         predicateResult = predicate.Invoke();
+                        Console.WriteLine(predicateResult);
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
                         //LogMessage
+                        Console.WriteLine(e.Message);
                         throw;
                     }
 
@@ -42,7 +45,11 @@ namespace EasyAutomation.Core
             
             taskCancellationToken.Cancel();
             taskCancellationToken.Dispose();
-            task.Dispose();
+
+            if (task.IsCompleted)
+            {
+                task.Dispose();
+            }
 
             if (taskIsSuccessfull)
             {
@@ -51,9 +58,56 @@ namespace EasyAutomation.Core
             }
 
             //Logmessage
-
             return false;
-
         }
+
+        public static AutomationElement TryGet(Func<AutomationElement> predicate, uint timeLimit = 5000, int checkInterval = 300)
+        {
+            var limit = TimeSpan.FromMilliseconds(timeLimit);
+
+            var taskCancellationToken = new CancellationTokenSource();
+
+            var task = Task.Factory.StartNew<AutomationElement>(() =>
+            {
+                AutomationElement predicateResult = null;
+
+                while (predicateResult == null && !taskCancellationToken.IsCancellationRequested)
+                {
+                    try
+                    {
+                        predicateResult = predicate.Invoke();
+                        Console.WriteLine(predicateResult);
+                    }
+                    catch (Exception e)
+                    {
+                        //LogMessage
+                        Console.WriteLine(e.Message);
+                        throw;
+                    }
+
+                    Thread.Sleep(checkInterval);
+                }
+
+                return predicateResult;
+
+            }, taskCancellationToken.Token);
+
+            AutomationElement automationElement = task.Result;
+            bool taskIsSuccessfull = task.Wait(limit);
+
+            taskCancellationToken.Cancel();
+            taskCancellationToken.Dispose();
+            task.Dispose();
+
+            if (taskIsSuccessfull)
+            {
+                //LogMessage
+                return automationElement;
+            }
+
+            //Logmessage
+            return automationElement;
+        }
+
     }
 }

@@ -1,13 +1,11 @@
-﻿using EasyAutomation.Utility;
+﻿using EasyAutomation.Core;
+using EasyAutomation.Utility;
 using System;
 using System.Runtime.Serialization;
 using System.Windows.Automation;
 
 namespace EasyAutomation.CalculatorViews
 {
-    //[DataContract]
-    //[Serializable()]
-    //    : ISerializable
     public class StandardCalculatorView 
     {
         private AutomationElement m_RootWindow;
@@ -17,8 +15,9 @@ namespace EasyAutomation.CalculatorViews
 
         }
 
-        public AutomationElement rootWindow => m_RootWindow ?? (m_RootWindow = AutomationElement.RootElement.FindFirst(
-            TreeScope.Descendants, SearchHelper.GetConditionByName("Calculator")));
+        public AutomationElement rootWindow => m_RootWindow ??
+            (m_RootWindow = Try.TryGet(() => AutomationElement.RootElement.FindFirst(
+            TreeScope.Descendants, SearchHelper.GetConditionByName("Calculator"))));
 
         public AutomationElement CalculatorResults => rootWindow.FindFirst(
             TreeScope.Descendants, SearchHelper.GetConditionByAutomationId("CalculatorResults"));
@@ -38,11 +37,11 @@ namespace EasyAutomation.CalculatorViews
         public AutomationElement ClearButton => DisplayControls.FindFirst(
             TreeScope.Descendants, SearchHelper.GetConditionByName("Clear"));
 
-        public AutomationElement NumberPad => rootWindow.FindFirst(
-            TreeScope.Descendants, SearchHelper.GetConditionByName("Number pad"));
-
-        public AutomationElement OneButton => NumberPad.FindFirst(
-            TreeScope.Descendants, SearchHelper.GetConditionByName("One"));
+        public AutomationElement NumberPad => Try.TryGet(() => rootWindow.FindFirst(
+            TreeScope.Descendants, SearchHelper.GetConditionByName("Number pad")));
+        
+        public AutomationElement OneButton => Try.TryGet(() => NumberPad.FindFirst(
+            TreeScope.Descendants, SearchHelper.GetConditionByName("One")));
 
         public AutomationElement TwoButton => NumberPad.FindFirst(
             TreeScope.Descendants, SearchHelper.GetConditionByName("Two"));
@@ -68,5 +67,16 @@ namespace EasyAutomation.CalculatorViews
         public AutomationElement NineButton => NumberPad.FindFirst(
             TreeScope.Descendants, SearchHelper.GetConditionByName("Nine"));
 
+        private AutomationElement CloseButton => Try.TryGet(() => rootWindow.FindFirst(
+            TreeScope.Descendants, SearchHelper.GetConditionByAutomationId("Close")));
+
+        public void Close()
+        {
+            MouseActions.SetCursorPos((int)CloseButton.Current.BoundingRectangle.X + 15,
+                (int)CloseButton.Current.BoundingRectangle.Y + 15);
+
+            MouseActions.DoMouseClick((uint)CloseButton.Current.BoundingRectangle.X,
+                (uint)CloseButton.Current.BoundingRectangle.Y);
+        }
     }
 }

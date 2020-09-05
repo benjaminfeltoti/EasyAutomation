@@ -4,12 +4,16 @@ using EasyAutomation.CalculatorViews;
 using System.Threading;
 using EasyAutomation.Core;
 using System.Globalization;
+using System.Windows.Automation;
+using System.Diagnostics;
 
 namespace EasyAutomation.Tests
 {
     public class StandartCalculatorTests
     {
+        Process application;
         private StandardCalculatorView standardCalculatorView;
+        private string applicationName;
 
         public StandartCalculatorTests()
         {
@@ -23,8 +27,10 @@ namespace EasyAutomation.Tests
             {
                 throw;
             }
-
-            CleanUp();
+            finally
+            {
+                CleanUp();
+            }
         }
 
         public void Setup()
@@ -32,16 +38,19 @@ namespace EasyAutomation.Tests
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
 
-            System.Diagnostics.Process p = System.Diagnostics.Process.Start("C:\\Windows\\System32\\calc.exe");
-            
-            p.WaitForInputIdle();
+            application = Process.Start("C:\\Windows\\System32\\calc.exe");
+            application.Refresh();
+            applicationName = application.ProcessName;
+            application.WaitForInputIdle();
 
             standardCalculatorView = new StandardCalculatorView();
         }
 
         public void CleanUp()
         {
+            Console.WriteLine("Cleanup");
 
+            standardCalculatorView.Close();           
         }
 
         public void TestThatStandardCalculatorViewButtonsCanBeClicked()
@@ -49,25 +58,22 @@ namespace EasyAutomation.Tests
             //Has to be in standard calc mode
 
             // Press 1
-            Thread.Sleep(500);
             MouseActions.SetCursorPos((int)standardCalculatorView.OneButton.Current.BoundingRectangle.X + 15,
                 (int)standardCalculatorView.OneButton.Current.BoundingRectangle.Y + 15);
+            
             MouseActions.DoMouseClick((uint)standardCalculatorView.OneButton.Current.BoundingRectangle.X,
                 (uint)standardCalculatorView.OneButton.Current.BoundingRectangle.Y);
 
             //Assert if it is 1.
-            Thread.Sleep(500);
-
-            /*
-            if (standardCalculatorView.CalculatorResults.Current.Name == "Display is 1")
-            {
-                Console.WriteLine("Brafó");
-            }  */
 
             if (Try.Until(() => standardCalculatorView.CalculatorResults.Current.Name == "Display is 1"))
             {
-                Console.WriteLine("Brafó");
+                Console.WriteLine("Success!");
             }
+            else
+            {
+                Console.WriteLine("Failed.");
+            }            
         }
     }
 }
