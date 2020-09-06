@@ -30,7 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.RegistrationForm = new System.Windows.Forms.GroupBox();
+            this.WarningPicture = new System.Windows.Forms.PictureBox();
             this.WarningLabel = new System.Windows.Forms.Label();
+            this.EMailAdressTextBox = new ExampleWinformsApplication.ValidatorTextBox();
             this.EMailAddressLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.MaleRadioButton = new System.Windows.Forms.RadioButton();
@@ -47,12 +49,10 @@
             this.Database = new System.Windows.Forms.GroupBox();
             this.RefreshButton = new System.Windows.Forms.Button();
             this.SubmitButtonTooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.WarningPicture = new System.Windows.Forms.PictureBox();
-            this.EMailAdressTextBox = new ExampleWinformsApplication.ValidatorTextBox();
             this.RegistrationForm.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.WarningPicture)).BeginInit();
             this.panel1.SuspendLayout();
             this.Database.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.WarningPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // RegistrationForm
@@ -77,6 +77,16 @@
             this.RegistrationForm.TabStop = false;
             this.RegistrationForm.Text = "Registration Form";
             // 
+            // WarningPicture
+            // 
+            this.WarningPicture.AccessibleName = "WarningPicture";
+            this.WarningPicture.Location = new System.Drawing.Point(10, 326);
+            this.WarningPicture.Name = "WarningPicture";
+            this.WarningPicture.Size = new System.Drawing.Size(24, 26);
+            this.WarningPicture.TabIndex = 13;
+            this.WarningPicture.TabStop = false;
+            this.WarningPicture.Visible = false;
+            // 
             // WarningLabel
             // 
             this.WarningLabel.AccessibleName = "WarningLabel";
@@ -86,6 +96,15 @@
             this.WarningLabel.Size = new System.Drawing.Size(156, 13);
             this.WarningLabel.TabIndex = 12;
             this.WarningLabel.Text = "Please fill out the form correctly!";
+            this.WarningLabel.Visible = false;
+            // 
+            // EMailAdressTextBox
+            // 
+            this.EMailAdressTextBox.AccessibleName = "EMailAdressTextBox";
+            this.EMailAdressTextBox.Location = new System.Drawing.Point(95, 140);
+            this.EMailAdressTextBox.Name = "EMailAdressTextBox";
+            this.EMailAdressTextBox.Size = new System.Drawing.Size(146, 20);
+            this.EMailAdressTextBox.TabIndex = 11;
             // 
             // EMailAddressLabel
             // 
@@ -95,7 +114,7 @@
             this.EMailAddressLabel.Name = "EMailAddressLabel";
             this.EMailAddressLabel.Size = new System.Drawing.Size(81, 13);
             this.EMailAddressLabel.TabIndex = 10;
-            this.EMailAddressLabel.Text = "E-mail address :";            
+            this.EMailAddressLabel.Text = "E-mail address :";
             // 
             // panel1
             // 
@@ -136,9 +155,9 @@
             this.GenderLabel.AutoSize = true;
             this.GenderLabel.Location = new System.Drawing.Point(7, 85);
             this.GenderLabel.Name = "GenderLabel";
-            this.GenderLabel.Size = new System.Drawing.Size(51, 13);
+            this.GenderLabel.Size = new System.Drawing.Size(48, 13);
             this.GenderLabel.TabIndex = 8;
-            this.GenderLabel.Text = "Gender  :";
+            this.GenderLabel.Text = "Gender :";
             // 
             // LastNameLabel
             // 
@@ -157,7 +176,6 @@
             this.LastNameTextBox.Name = "LastNameTextBox";
             this.LastNameTextBox.Size = new System.Drawing.Size(163, 20);
             this.LastNameTextBox.TabIndex = 6;
-            this.LastNameTextBox.LostFocus += OnLostFocusOnTextBoxes;
             // 
             // FirstNameTextBox
             // 
@@ -166,7 +184,6 @@
             this.FirstNameTextBox.Name = "FirstNameTextBox";
             this.FirstNameTextBox.Size = new System.Drawing.Size(163, 20);
             this.FirstNameTextBox.TabIndex = 5;
-            this.FirstNameTextBox.LostFocus += OnLostFocusOnTextBoxes;
             // 
             // FirstNameLabel
             // 
@@ -202,6 +219,7 @@
             this.SubmitButton.Text = "Submit";
             this.SubmitButton.UseVisualStyleBackColor = true;
             this.SubmitButton.EnabledChanged += new System.EventHandler(this.OnEnabledChangedSubmitButton);
+            this.SubmitButton.Click += new System.EventHandler(this.SubmitButton_Click);
             this.SubmitButton.MouseHover += new System.EventHandler(this.OnMouseHoverOnSubmitButton);
             // 
             // DataBaseListBox
@@ -245,24 +263,7 @@
             this.RefreshButton.TabIndex = 12;
             this.RefreshButton.Text = "Refresh";
             this.RefreshButton.UseVisualStyleBackColor = true;
-            // 
-            // WarningPicture
-            // 
-            this.WarningPicture.AccessibleName = "WarningPicture";
-            this.WarningPicture.Location = new System.Drawing.Point(10, 326);
-            this.WarningPicture.Name = "WarningPicture";
-            this.WarningPicture.Size = new System.Drawing.Size(24, 26);
-            this.WarningPicture.TabIndex = 13;
-            this.WarningPicture.TabStop = false;
-            // 
-            // EMailAdressTextBox
-            // 
-            this.EMailAdressTextBox.AccessibleName = "EMailAdressTextBox";
-            this.EMailAdressTextBox.Location = new System.Drawing.Point(95, 140);
-            this.EMailAdressTextBox.Name = "EMailAdressTextBox";
-            this.EMailAdressTextBox.Size = new System.Drawing.Size(146, 20);
-            this.EMailAdressTextBox.TabIndex = 11;
-            this.EMailAdressTextBox.LostFocus += OnLostFocusOnTextBoxes;
+            this.RefreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
             // ExamleApplication
             // 
@@ -275,13 +276,12 @@
             this.Controls.Add(this.RegistrationForm);
             this.Name = "ExamleApplication";
             this.Text = "ExamleApplication";
-            this.Load += new System.EventHandler(this.ExamleApplication_Load);
             this.RegistrationForm.ResumeLayout(false);
             this.RegistrationForm.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.WarningPicture)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.Database.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.WarningPicture)).EndInit();
             this.ResumeLayout(false);
 
         }
