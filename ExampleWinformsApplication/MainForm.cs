@@ -1,32 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
+using System.IO;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ExampleWinformsApplication
 {
     public partial class ExamleApplication : Form
     {
-        private List<string> databaseListBoxItems = new List<string> {
-            "Sörös József sorosjozsef@gmail.hu",
-            "Emília Edina emiliaedina@freemail.hu",
-            "Kódor Tibor kodorti88@citromail.hu"};
+        private List<string> databaseListBoxItems = new List<string>();
 
         public ExamleApplication()
         {
             InitializeComponent();
-        }
-
-        private void ExamleApplication_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void OnLostFocusOnTextBoxes(object sender, EventArgs e)
@@ -58,20 +44,36 @@ namespace ExampleWinformsApplication
             if (dialogResult == DialogResult.Yes)
             {
                 ShowWaitDialog("Uploading data...");
-                ResetTextboxTexts();
                 UploadToDatabase();
+                ResetTextboxTexts();
+                MessageBox.Show("Upload was successfull!");
             }
         }
 
         private void UploadToDatabase()
         {
-            RefreshDataBase();
-            databaseListBoxItems.Add($"{ FirstNameTextBox.Text } { LastNameTextBox.Text } { EMailAdressTextBox.Text }");
+            using (StreamWriter streamWriter = new StreamWriter("database.txt", true))
+            {
+                streamWriter.Write($"\n{ FirstNameTextBox.Text } { LastNameTextBox.Text } { EMailAdressTextBox.Text }");
+            }
         }
 
         private void RefreshDataBase()
         {
             DataBaseListBox.Items.Clear();
+            databaseListBoxItems = new List<string>();
+
+            if (File.Exists("database.txt"))
+            {
+                using (StreamReader streamReader = new StreamReader("database.txt", true))
+                {
+                    while (!streamReader.EndOfStream)
+                    {
+                        databaseListBoxItems.Add(streamReader.ReadLine());
+                    }
+                }
+            }
+
             databaseListBoxItems.ForEach(data => DataBaseListBox.Items.Add(data));
         }
 
@@ -82,6 +84,14 @@ namespace ExampleWinformsApplication
             EMailAdressTextBox.Text = string.Empty;
         }
 
+        private void OnKeyUpFocusNextControl(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode == Keys.Enter) || (e.KeyCode == Keys.Return))
+            {
+                SelectNextControl((Control)sender, true, true, true, true);
+            }
+        }
+
         private void ShowWaitDialog(string message)
         {
             var waitDialog = new WaitDialog(message);
@@ -90,7 +100,9 @@ namespace ExampleWinformsApplication
             waitDialog.Show();
             waitDialog.Refresh();
 
-            Thread.Sleep(2000);
+            Random r = new Random();            
+            Thread.Sleep(r.Next(2000, 5000));
+
             waitDialog.Close();
         }
 

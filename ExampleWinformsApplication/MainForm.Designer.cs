@@ -32,7 +32,6 @@
             this.RegistrationForm = new System.Windows.Forms.GroupBox();
             this.WarningPicture = new System.Windows.Forms.PictureBox();
             this.WarningLabel = new System.Windows.Forms.Label();
-            this.EMailAdressTextBox = new ExampleWinformsApplication.ValidatorTextBox();
             this.EMailAddressLabel = new System.Windows.Forms.Label();
             this.RadiobuttonsPanel = new System.Windows.Forms.Panel();
             this.MaleRadioButton = new System.Windows.Forms.RadioButton();
@@ -49,6 +48,7 @@
             this.Database = new System.Windows.Forms.GroupBox();
             this.RefreshButton = new System.Windows.Forms.Button();
             this.SubmitButtonTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.EMailAdressTextBox = new ExampleWinformsApplication.ValidatorTextBox();
             this.RegistrationForm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.WarningPicture)).BeginInit();
             this.RadiobuttonsPanel.SuspendLayout();
@@ -98,14 +98,6 @@
             this.WarningLabel.Text = "Please fill out the form correctly!";
             this.WarningLabel.Visible = false;
             // 
-            // EMailAdressTextBox
-            // 
-            this.EMailAdressTextBox.AccessibleName = "EMailAdressTextBox";
-            this.EMailAdressTextBox.Location = new System.Drawing.Point(95, 140);
-            this.EMailAdressTextBox.Name = "EMailAdressTextBox";
-            this.EMailAdressTextBox.Size = new System.Drawing.Size(146, 20);
-            this.EMailAdressTextBox.TabIndex = 11;
-            // 
             // EMailAddressLabel
             // 
             this.EMailAddressLabel.AccessibleName = "EMailAddressLabel";
@@ -121,7 +113,7 @@
             this.RadiobuttonsPanel.Controls.Add(this.MaleRadioButton);
             this.RadiobuttonsPanel.Controls.Add(this.FemaleRadioButton);
             this.RadiobuttonsPanel.Location = new System.Drawing.Point(78, 85);
-            this.RadiobuttonsPanel.Name = "panel1";
+            this.RadiobuttonsPanel.Name = "RadiobuttonsPanel";
             this.RadiobuttonsPanel.Size = new System.Drawing.Size(163, 49);
             this.RadiobuttonsPanel.TabIndex = 9;
             // 
@@ -176,6 +168,8 @@
             this.LastNameTextBox.Name = "LastNameTextBox";
             this.LastNameTextBox.Size = new System.Drawing.Size(163, 20);
             this.LastNameTextBox.TabIndex = 6;
+            this.LastNameTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnKeyUpFocusNextControl);
+            this.LastNameTextBox.LostFocus += new System.EventHandler(this.OnLostFocusOnTextBoxes);
             // 
             // FirstNameTextBox
             // 
@@ -184,6 +178,8 @@
             this.FirstNameTextBox.Name = "FirstNameTextBox";
             this.FirstNameTextBox.Size = new System.Drawing.Size(163, 20);
             this.FirstNameTextBox.TabIndex = 5;
+            this.FirstNameTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnKeyUpFocusNextControl);
+            this.FirstNameTextBox.LostFocus += new System.EventHandler(this.OnLostFocusOnTextBoxes);
             // 
             // FirstNameLabel
             // 
@@ -264,6 +260,16 @@
             this.RefreshButton.Text = "Refresh";
             this.RefreshButton.UseVisualStyleBackColor = true;
             this.RefreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
+            // 
+            // EMailAdressTextBox
+            // 
+            this.EMailAdressTextBox.AccessibleName = "EMailAdressTextBox";
+            this.EMailAdressTextBox.Location = new System.Drawing.Point(95, 140);
+            this.EMailAdressTextBox.Name = "EMailAdressTextBox";
+            this.EMailAdressTextBox.Size = new System.Drawing.Size(146, 20);
+            this.EMailAdressTextBox.TabIndex = 11;
+            this.EMailAdressTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnKeyUpFocusNextControl);
+            this.EMailAdressTextBox.LostFocus += new System.EventHandler(this.OnLostFocusOnTextBoxes);
             // 
             // ExamleApplication
             // 
