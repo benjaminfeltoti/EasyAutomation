@@ -1,13 +1,7 @@
-﻿using EasyAutomation.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EasyAutomation.AutomationFramework.Utility;
 using System.Windows.Automation;
 
-namespace EasyAutomation.Core
+namespace EasyAutomation.AutomationFramework.Core
 {
     public class ControlElement
     {
@@ -39,12 +33,5 @@ namespace EasyAutomation.Core
 
             return automationElement;
         }
-
-        //NameContains
-
-        //public T As(): where T ControlElement
-        //{
-        //    return null;
-        //}
     }
 }

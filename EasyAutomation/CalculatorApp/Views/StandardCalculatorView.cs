@@ -1,10 +1,8 @@
-﻿using EasyAutomation.Core;
-using EasyAutomation.Utility;
-using System;
-using System.Runtime.Serialization;
+﻿using EasyAutomation.AutomationFramework.Core;
+using EasyAutomation.AutomationFramework.Utility;
 using System.Windows.Automation;
 
-namespace EasyAutomation.CalculatorViews
+namespace EasyAutomation.ExampleTests.CalculatorApp.Views
 {
     public class StandardCalculatorView 
     {

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Automation;
 
-namespace EasyAutomation.Utility
+namespace EasyAutomation.AutomationFramework.Utility
 {
     public static class SearchHelper
     {        

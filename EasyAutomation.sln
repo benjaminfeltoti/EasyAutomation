@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleBase", "EasyAutomation\ExampleBase.csproj", "{5A1B9D41-5474-4DA7-88BE-B6ABF706088F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamplesTests", "EasyAutomation\ExamplesTests.csproj", "{5A1B9D41-5474-4DA7-88BE-B6ABF706088F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleWinformsApplication", "ExampleWinformsApplication\ExampleWinformsApplication.csproj", "{99C9FC73-3864-448D-898C-3F0AE59C4914}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationFramework", "AutomationFramework\AutomationFramework.csproj", "{9CDB8A8E-3CA9-4F6F-8320-E40AC7D44817}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{99C9FC73-3864-448D-898C-3F0AE59C4914}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99C9FC73-3864-448D-898C-3F0AE59C4914}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99C9FC73-3864-448D-898C-3F0AE59C4914}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CDB8A8E-3CA9-4F6F-8320-E40AC7D44817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CDB8A8E-3CA9-4F6F-8320-E40AC7D44817}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CDB8A8E-3CA9-4F6F-8320-E40AC7D44817}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CDB8A8E-3CA9-4F6F-8320-E40AC7D44817}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

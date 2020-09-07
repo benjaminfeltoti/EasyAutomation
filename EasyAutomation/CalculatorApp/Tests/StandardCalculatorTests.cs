@@ -1,21 +1,21 @@
-﻿using System;
-using EasyAutomation.Utility;
-using EasyAutomation.CalculatorViews;
+﻿
+using EasyAutomation.AutomationFramework.Core;
+using EasyAutomation.AutomationFramework.Utility;
+using EasyAutomation.ExampleTests.CalculatorApp.Views;
+using System;
 using System.Threading;
-using EasyAutomation.Core;
 using System.Globalization;
-using System.Windows.Automation;
 using System.Diagnostics;
 
-namespace EasyAutomation.Tests
+namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
 {
-    public class StandartCalculatorTests
+    public class StandardCalculatorTests
     {
         Process application;
         private StandardCalculatorView standardCalculatorView;
         private string applicationName;
 
-        public StandartCalculatorTests()
+        public StandardCalculatorTests()
         {
             Setup();
 

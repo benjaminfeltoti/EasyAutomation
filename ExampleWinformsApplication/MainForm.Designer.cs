@@ -34,7 +34,7 @@
             this.WarningLabel = new System.Windows.Forms.Label();
             this.EMailAdressTextBox = new ExampleWinformsApplication.ValidatorTextBox();
             this.EMailAddressLabel = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.RadiobuttonsPanel = new System.Windows.Forms.Panel();
             this.MaleRadioButton = new System.Windows.Forms.RadioButton();
             this.FemaleRadioButton = new System.Windows.Forms.RadioButton();
             this.GenderLabel = new System.Windows.Forms.Label();
@@ -51,7 +51,7 @@
             this.SubmitButtonTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.RegistrationForm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.WarningPicture)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.RadiobuttonsPanel.SuspendLayout();
             this.Database.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,7 +62,7 @@
             this.RegistrationForm.Controls.Add(this.WarningLabel);
             this.RegistrationForm.Controls.Add(this.EMailAdressTextBox);
             this.RegistrationForm.Controls.Add(this.EMailAddressLabel);
-            this.RegistrationForm.Controls.Add(this.panel1);
+            this.RegistrationForm.Controls.Add(this.RadiobuttonsPanel);
             this.RegistrationForm.Controls.Add(this.GenderLabel);
             this.RegistrationForm.Controls.Add(this.LastNameLabel);
             this.RegistrationForm.Controls.Add(this.LastNameTextBox);
@@ -116,14 +116,14 @@
             this.EMailAddressLabel.TabIndex = 10;
             this.EMailAddressLabel.Text = "E-mail address :";
             // 
-            // panel1
+            // RadiobuttonsPanel
             // 
-            this.panel1.Controls.Add(this.MaleRadioButton);
-            this.panel1.Controls.Add(this.FemaleRadioButton);
-            this.panel1.Location = new System.Drawing.Point(78, 85);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(163, 49);
-            this.panel1.TabIndex = 9;
+            this.RadiobuttonsPanel.Controls.Add(this.MaleRadioButton);
+            this.RadiobuttonsPanel.Controls.Add(this.FemaleRadioButton);
+            this.RadiobuttonsPanel.Location = new System.Drawing.Point(78, 85);
+            this.RadiobuttonsPanel.Name = "panel1";
+            this.RadiobuttonsPanel.Size = new System.Drawing.Size(163, 49);
+            this.RadiobuttonsPanel.TabIndex = 9;
             // 
             // MaleRadioButton
             // 
@@ -279,8 +279,8 @@
             this.RegistrationForm.ResumeLayout(false);
             this.RegistrationForm.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.WarningPicture)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.RadiobuttonsPanel.ResumeLayout(false);
+            this.RadiobuttonsPanel.PerformLayout();
             this.Database.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -300,7 +300,7 @@
         private System.Windows.Forms.ListBox DataBaseListBox;
         private System.Windows.Forms.Label GenderLabel;
         private System.Windows.Forms.ComboBox LanguageComboBox;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel RadiobuttonsPanel;
         private System.Windows.Forms.Label EMailAddressLabel;
         private ValidatorTextBox EMailAdressTextBox;
         private System.Windows.Forms.GroupBox Database;

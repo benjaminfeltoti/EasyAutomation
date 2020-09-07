@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,7 +14,7 @@ namespace ExampleWinformsApplication
 {
     public partial class ExamleApplication : Form
     {
-        private List<string> databaseObjects = new List<string> {
+        private List<string> databaseListBoxItems = new List<string> {
             "Sörös József sorosjozsef@gmail.hu",
             "Emília Edina emiliaedina@freemail.hu",
             "Kódor Tibor kodorti88@citromail.hu"};
@@ -65,20 +66,20 @@ namespace ExampleWinformsApplication
         private void UploadToDatabase()
         {
             RefreshDataBase();
-            databaseObjects.Add($"{ FirstNameTextBox.Text } { LastNameTextBox.Text } { EMailAdressTextBox.Text }");
+            databaseListBoxItems.Add($"{ FirstNameTextBox.Text } { LastNameTextBox.Text } { EMailAdressTextBox.Text }");
         }
 
         private void RefreshDataBase()
         {
             DataBaseListBox.Items.Clear();
-            databaseObjects.ForEach(data => DataBaseListBox.Items.Add(data));
+            databaseListBoxItems.ForEach(data => DataBaseListBox.Items.Add(data));
         }
 
         private void ResetTextboxTexts()
         {
-            FirstNameTextBox.Text = "";
-            LastNameTextBox.Text = "";
-            EMailAdressTextBox.Text = "";
+            FirstNameTextBox.Text = string.Empty;
+            LastNameTextBox.Text = string.Empty;
+            EMailAdressTextBox.Text = string.Empty;
         }
 
         private void ShowWaitDialog(string message)
@@ -89,7 +90,7 @@ namespace ExampleWinformsApplication
             waitDialog.Show();
             waitDialog.Refresh();
 
-            System.Threading.Thread.Sleep(2000);
+            Thread.Sleep(2000);
             waitDialog.Close();
         }
 
