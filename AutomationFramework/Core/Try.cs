@@ -58,7 +58,7 @@ namespace EasyAutomation.AutomationFramework.Core
             return false;
         }
 
-        public static AutomationElement TryGet(Func<AutomationElement> predicate, uint timeLimit = 5000, int checkInterval = 300)
+        public static ControlElement TryGet(Func<AutomationElement> predicate, uint timeLimit = 5000, int checkInterval = 300)
         {
             var limit = TimeSpan.FromMilliseconds(timeLimit);
 
@@ -99,11 +99,11 @@ namespace EasyAutomation.AutomationFramework.Core
             if (taskIsSuccessfull)
             {
                 //LogMessage
-                return automationElement;
+                return new ControlElement(automationElement);
             }
 
             //Logmessage
-            return automationElement;
+            return new ControlElement(null);
         }
 
     }
