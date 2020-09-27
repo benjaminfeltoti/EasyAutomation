@@ -1,5 +1,6 @@
 ﻿using AutomationFramework.Core;
 using EasyAutomation.AutomationFramework.Core;
+using EasyAutomation.AutomationFramework.Logging;
 using EasyAutomation.ExampleTests;
 using System;
 
@@ -11,16 +12,15 @@ namespace EasyAutomation
         {
             ControlElement control = Desktop.Root.FindDescendantByName("FirstNameTextBox");
 
-            Console.WriteLine(control.Name());
-            Console.WriteLine(control.ClassName());
-            Console.WriteLine(control.AutomationId());
-            Console.WriteLine(control.HelpText());
-            Console.WriteLine(control.ControlType());
-            Console.WriteLine(control.LocalizedControlType());
-            Console.WriteLine(control.BoundingRectangle().Width);
-            Console.WriteLine(control.IsEnabled());
-            Console.WriteLine(control.IsOffScreen());
-
+            Log.Write(control.Name(), TextType.FatalError, 1);
+            Log.Write(control.ClassName(), TextType.Error, 4);
+            Log.Write(control.AutomationId(), TextType.Header, 3);
+            Log.Write(control.HelpText(), TextType.Success, 2);
+            Log.Write(control.ControlType().ToString());
+            Log.Write(control.LocalizedControlType());
+            Log.Write(control.BoundingRectangle().Width.ToString());
+            Log.Write(control.IsEnabled().ToString());
+            Log.Write(control.IsOffScreen().ToString());
 
             //TestRunner testRunner = new TestRunner();
 

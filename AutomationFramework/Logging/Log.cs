@@ -16,15 +16,29 @@ namespace EasyAutomation.AutomationFramework.Logging
             NewFile();
         }
 
-        public static void Write(string text, TextType textType = 0)
+        public static void Write(string text, TextType textType = 0, ushort indentLevel = 0)
         {
+            string indentation = GetIndentationString(indentLevel);
+
             SetConsoleColor(textType);
-            Console.WriteLine(text);
+            Console.WriteLine(indentation + text);
 
             using (StreamWriter streamWriter = new StreamWriter(fileName + fileType, true))
             {
-                streamWriter.WriteLine(text);
+                streamWriter.WriteLine(indentation + text);
             }
+        }
+
+        private static string GetIndentationString(ushort indentLevel)
+        {
+            string indentation = "";
+
+            for (int i = 0; i <= indentLevel; i++)
+            {
+                indentation += "  ";
+            }
+
+            return indentation;
         }
 
         private static void SetConsoleColor(TextType textType = 0)
@@ -44,7 +58,7 @@ namespace EasyAutomation.AutomationFramework.Logging
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                     break;
                 case TextType.Header:
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     break;
                 case TextType.Warning:
                     Console.ForegroundColor = ConsoleColor.Yellow;
