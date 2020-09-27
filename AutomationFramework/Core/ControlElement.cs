@@ -13,25 +13,28 @@ namespace EasyAutomation.AutomationFramework.Core
             m_Root = root;
         }
 
-        public string Name => m_Root.Current.Name;
-
-        public string ClassName => m_Root.Current.ClassName;
-
-        public string AutomationId => m_Root.Current.AutomationId;
-
-        public string HelpText => m_Root.Current.HelpText;
-
-        public ControlType ControlType => m_Root.Current.ControlType;
-
-        public string LocalizedControlType => m_Root.Current.LocalizedControlType;
-
-        public Rect BoundingRectangle => m_Root.Current.BoundingRectangle;
-
-        public bool IsEnabled => m_Root.Current.IsEnabled;
-
-        public bool IsOffScreen => m_Root.Current.IsOffscreen;
-
         public AutomationElement RawElement => m_Root;
+
+        public string Name(uint timeout = 5000) => Arrange<string>.Get(() => current(timeout).Name, timeout);
+
+        public string ClassName(uint timeout = 5000) => Arrange<string>.Get(() => current(timeout).ClassName, timeout);
+
+        public string AutomationId(uint timeout = 5000) => Arrange<string>.Get(() => current(timeout).AutomationId, timeout);
+
+        public string HelpText(uint timeout = 5000) => Arrange<string>.Get(() => current(timeout).HelpText, timeout);
+
+        public ControlType ControlType(uint timeout = 5000) => Arrange<ControlType>.Get(() => current(timeout).ControlType, timeout);
+
+        public string LocalizedControlType(uint timeout = 5000) => Arrange<string>.Get(() => current(timeout).LocalizedControlType, timeout);
+
+        public Rect BoundingRectangle(uint timeout = 5000) => Arrange<Rect>.Get(() => current(timeout).BoundingRectangle, timeout);
+
+        public bool IsEnabled(uint timeout = 5000) => Arrange<bool>.Get(() => current(timeout).IsEnabled, timeout);
+
+        public bool IsOffScreen(uint timeout = 5000) => Arrange<bool>.Get(() => current(timeout).IsOffscreen, timeout);
+
+        private AutomationElement.AutomationElementInformation current(uint timeout = 5000) =>
+            Arrange<AutomationElement.AutomationElementInformation>.Get(() => m_Root.Current, timeout);
 
         public void SetFocus()
         {
@@ -55,6 +58,13 @@ namespace EasyAutomation.AutomationFramework.Core
         public ControlElement FindChildByName(string name) // try get timeout 5000?
         {
             var automationElement = new ControlElement(m_Root.FindFirst(TreeScope.Children, SearchHelper.GetConditionByName(name)));
+
+            return automationElement;
+        }
+
+        public ControlElement FindDescendantByName(string name) // try get timeout 5000?
+        {//if null throw
+            var automationElement = new ControlElement(m_Root.FindFirst(TreeScope.Descendants, SearchHelper.GetConditionByName(name)));
 
             return automationElement;
         }

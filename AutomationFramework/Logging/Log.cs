@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace AutomationFramework.Logging
+namespace EasyAutomation.AutomationFramework.Logging
 {
     /// <summary>
     /// This class is responsible for logging to a file and to the console.

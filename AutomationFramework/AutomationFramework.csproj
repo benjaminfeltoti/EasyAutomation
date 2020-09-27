@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AutomationFramework</RootNamespace>
     <AssemblyName>AutomationFramework</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,7 +44,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Arrange.cs" />
     <Compile Include="Core\ControlElement.cs" />
+    <Compile Include="Core\Desktop.cs" />
     <Compile Include="Core\Try.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="Logging\TextType.cs" />

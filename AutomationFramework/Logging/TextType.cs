@@ -1,5 +1,5 @@
 ﻿
-namespace AutomationFramework.Logging
+namespace EasyAutomation.AutomationFramework.Logging
 {
     public enum TextType
     {

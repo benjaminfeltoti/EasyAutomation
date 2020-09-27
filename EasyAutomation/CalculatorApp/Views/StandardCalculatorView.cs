@@ -12,7 +12,7 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Views
         {
 
         }
-
+        /*
         public AutomationElement rootWindow => m_RootWindow ??
             (m_RootWindow = Try.TryGet(() => AutomationElement.RootElement.FindFirst(
             TreeScope.Descendants, SearchHelper.GetConditionByName("Calculator"))));
@@ -75,6 +75,6 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Views
 
             MouseActions.DoMouseClick((uint)CloseButton.Current.BoundingRectangle.X,
                 (uint)CloseButton.Current.BoundingRectangle.Y);
-        }
+        }*/
     }
 }

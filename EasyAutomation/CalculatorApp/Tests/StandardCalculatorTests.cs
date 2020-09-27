@@ -50,11 +50,11 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
         {
             Console.WriteLine("Cleanup");
 
-            standardCalculatorView.Close();           
+            //standardCalculatorView.Close();           
         }
 
         public void TestThatStandardCalculatorViewButtonsCanBeClicked()
-        {
+        {/*
             //Has to be in standard calc mode
 
             // Press 1
@@ -73,7 +73,7 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
             else
             {
                 Console.WriteLine("Failed.");
-            }            
+            }   */         
         }
     }
 }

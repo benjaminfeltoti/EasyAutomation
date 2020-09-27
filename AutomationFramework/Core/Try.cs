@@ -16,7 +16,7 @@ namespace EasyAutomation.AutomationFramework.Core
             var task = Task.Factory.StartNew<bool>(() =>
             {
                 bool predicateResult = false;
-                
+
                 while (!predicateResult && !taskCancellationToken.IsCancellationRequested)
                 {
                     try
@@ -39,7 +39,7 @@ namespace EasyAutomation.AutomationFramework.Core
             }, taskCancellationToken.Token);
 
             bool taskIsSuccessfull = task.Wait(limit);
-            
+
             taskCancellationToken.Cancel();
             taskCancellationToken.Dispose();
 
@@ -104,6 +104,10 @@ namespace EasyAutomation.AutomationFramework.Core
 
             //Logmessage
             return new ControlElement(null);
+        }
+
+        public static void Act()
+        {
         }
 
     }
