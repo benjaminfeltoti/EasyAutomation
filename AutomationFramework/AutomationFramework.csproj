@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Core\ControlElement.cs" />
     <Compile Include="Core\Try.cs" />
+    <Compile Include="Logging\Log.cs" />
+    <Compile Include="Logging\TextType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\MouseActions.cs" />
     <Compile Include="Utility\SearchHelper.cs" />
