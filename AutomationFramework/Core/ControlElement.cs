@@ -1,4 +1,7 @@
-﻿using EasyAutomation.AutomationFramework.Utility;
+﻿using AutomationFramework.Controls;
+using EasyAutomation.AutomationFramework.Logging;
+using EasyAutomation.AutomationFramework.Utility;
+using System;
 using System.Windows;
 using System.Windows.Automation;
 
@@ -8,11 +11,13 @@ namespace EasyAutomation.AutomationFramework.Core
     {
         private AutomationElement m_Root;
 
+        //internal?
         public ControlElement(AutomationElement root)
         {
             m_Root = root;
         }
 
+        //internal?
         public AutomationElement RawElement => m_Root;
 
         public string Name(uint timeout = 5000) => Arrange<string>.Get(() => current(timeout).Name, timeout);
@@ -55,30 +60,29 @@ namespace EasyAutomation.AutomationFramework.Core
             return m_Root.TryGetCurrentPattern(pattern, out patternObject);
         }
 
-        public ControlElement FindChildByName(string name) // try get timeout 5000?
+        public ControlElement FindChildByName(string name, uint timeout = 5000)
         {
-            var automationElement = new ControlElement(m_Root.FindFirst(TreeScope.Children, SearchHelper.GetConditionByName(name)));
+            ControlElement element = Try.TryGet(() => m_Root.FindFirst(TreeScope.Children, SearchHelper.GetConditionByName(name)), timeout);
 
-            return automationElement;
+            return element;
         }
 
-        public ControlElement FindDescendantByName(string name) // try get timeout 5000?
-        {//if null throw
-            var automationElement = new ControlElement(m_Root.FindFirst(TreeScope.Descendants, SearchHelper.GetConditionByName(name)));
+        public ControlElement FindDescendantByName(string name, uint timeout = 5000)
+        {//TODO : if null throw
+            ControlElement element = Try.TryGet(() => m_Root.FindFirst(TreeScope.Descendants, SearchHelper.GetConditionByName(name)), timeout);
 
-            return automationElement;
+            return element;
         }
 
-        public ControlElement FindChildByAutomationId(string name)
+        public ControlElement FindChildByAutomationId(string automationId, uint timeout = 5000)
         {
-            var automationElement = new ControlElement(m_Root.FindFirst(TreeScope.Children, SearchHelper.GetConditionByAutomationId(name)));
+            ControlElement element = Try.TryGet(() => m_Root.FindFirst(TreeScope.Children, SearchHelper.GetConditionByAutomationId(automationId)), timeout);
 
-            return automationElement;
+            return element;
         }
-
 
         //Click wait until enabled and onscreen
-
+        //public void Click();
         // .As casting
 
         public ControlElement[] FindAllChildren()
@@ -101,6 +105,32 @@ namespace EasyAutomation.AutomationFramework.Core
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Returns the core informations of this object.
+        /// </summary>
+        /// <returns>Returns Name, AutomationId, LocalizedControlType</returns>
+        public override string ToString()
+        {
+            return $"Name: {Name()} AutomationId: {AutomationId()} ControlType: {LocalizedControlType()}";
+        }
+
+        // Todo: Create it's own class.
+        internal T GetPattern<T>(AutomationPattern automationPattern) where T : BasePattern
+        {
+            object patternObject;
+
+            if (RawElement.TryGetCurrentPattern(automationPattern, out patternObject))
+            {
+
+                return patternObject as T;
+            }
+
+            string errorMessage = $"It is not possible to get the {typeof(T)} pattern on the object: {this.ToString()}";
+
+            Log.Write(errorMessage, TextType.FatalError);
+            throw new Exception(errorMessage);
         }
     }
 }

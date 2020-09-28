@@ -16,11 +16,12 @@ namespace EasyAutomation.AutomationFramework.Logging
             NewFile();
         }
 
-        public static void Write(string text, TextType textType = 0, ushort indentLevel = 0)
+        public static void Write(string text, TextType textType = 0)
         {
-            string indentation = GetIndentationString(indentLevel);
+            string indentation = GetIndentationString(DefineIndentationLevel(textType));
 
             SetConsoleColor(textType);
+
             Console.WriteLine(indentation + text);
 
             using (StreamWriter streamWriter = new StreamWriter(fileName + fileType, true))
@@ -41,23 +42,48 @@ namespace EasyAutomation.AutomationFramework.Logging
             return indentation;
         }
 
+        private static ushort DefineIndentationLevel(TextType textType = 0)
+        {
+            switch (textType)
+            {
+                case TextType.Error:
+                case TextType.FatalError:
+                case TextType.SuccessfulArrangement:
+                case TextType.SuccessfulAct:
+                case TextType.SuccessfulAssertion:
+                    return 3;
+                case TextType.Passed:
+                case TextType.TestName:
+                case TextType.Warning:
+                    return 1;
+                case TextType.Default:
+                default:
+                    return 0;
+            }
+        }
+
         private static void SetConsoleColor(TextType textType = 0)
         {
             switch (textType)
             {
                 case TextType.Error:
+                case TextType.Failed:
+                case TextType.FatalError:
                     Console.ForegroundColor = ConsoleColor.Red;
                     break;
-                case TextType.FatalError:
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                case TextType.SuccessfulArrangement:
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                     break;
-                case TextType.Success:
+                case TextType.SuccessfulAct:
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    break;
+                case TextType.SuccessfulAssertion:
                     Console.ForegroundColor = ConsoleColor.Green;
                     break;
                 case TextType.Passed:
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.ForegroundColor = ConsoleColor.Green;
                     break;
-                case TextType.Header:
+                case TextType.TestName:
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     break;
                 case TextType.Warning:

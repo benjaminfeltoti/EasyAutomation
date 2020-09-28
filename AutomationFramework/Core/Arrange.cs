@@ -6,7 +6,7 @@ namespace EasyAutomation.AutomationFramework.Core
 {
     internal static class Arrange<T>
     {
-        public static T Get(Func<T> predicate, uint timeLimit = 5000)
+        internal static T Get(Func<T> predicate, uint timeLimit = 5000)
         {
             var limit = TimeSpan.FromMilliseconds(timeLimit);
 

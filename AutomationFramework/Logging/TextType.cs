@@ -6,9 +6,12 @@ namespace EasyAutomation.AutomationFramework.Logging
         Default = 0,
         Error = 1,
         FatalError = 2,
-        Success = 3,
-        Passed = 4,
-        Header = 5,
-        Warning = 6
+        SuccessfulArrangement = 3,
+        SuccessfulAct = 4,
+        SuccessfulAssertion = 5,
+        Passed = 6,
+        Failed = 7,
+        TestName = 8,
+        Warning = 9
     }
 }
