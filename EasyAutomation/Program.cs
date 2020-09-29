@@ -28,6 +28,8 @@ namespace EasyAutomation
             TestRunner testRunner = new TestRunner();
             testRunner.RunTests(new ITestClass[1] { new ExampleWinformsApplicationTests() });
 
+            Console.WriteLine("End");
+
             Console.ReadLine();
         }        
     }

@@ -14,7 +14,19 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
 
         public bool ThisIsMyFirstTest()
         {
-            new ExampleWinformsApplicationViews().SubmitButton.Invoke();
+            var view = new ExampleWinformsApplicationViews();
+
+            for (int i = 0; i < 999; i++)
+            {
+                _ = view.FirstNameTextBox.AutomationId();
+                _ = view.FirstNameTextBox.Name();
+                _ = view.FirstNameTextBox.ClassName();
+                _ = view.FirstNameTextBox.HelpText();
+                _ = view.FirstNameTextBox.BoundingRectangle();
+                _ = view.FirstNameTextBox.LocalizedControlType();
+                _ = view.FirstNameTextBox.IsEnabled();
+                _ = view.FirstNameTextBox.IsOffScreen();
+            }
 
             return true;
         }

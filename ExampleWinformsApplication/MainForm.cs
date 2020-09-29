@@ -101,7 +101,7 @@ namespace ExampleWinformsApplication
             waitDialog.Refresh();
 
             Random r = new Random();            
-            Thread.Sleep(r.Next(2000, 5000));
+            Thread.Sleep(r.Next(10000, 15000));
 
             waitDialog.Close();
         }
