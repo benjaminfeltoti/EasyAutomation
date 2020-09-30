@@ -63,8 +63,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CalculatorApp\Tests\ExampleWinformsApplicationTests.cs" />
-    <Compile Include="CalculatorApp\Views\ExampleWinformsApplicationViews.cs" />
+    <Compile Include="ExampleWinformsApp\Tests\ExampleWinformsApplicationTests.cs" />
+    <Compile Include="ExampleWinformsApp\Views\ExampleWinformsApplicationViews.cs" />
     <Compile Include="CalculatorApp\Views\StandardCalculatorView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,9 +80,7 @@
       <Name>AutomationFramework</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ExampleWinformsApp\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
