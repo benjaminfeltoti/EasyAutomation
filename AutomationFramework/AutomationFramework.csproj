@@ -7,8 +7,8 @@
     <ProjectGuid>{9CDB8A8E-3CA9-4F6F-8320-E40AC7D44817}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AutomationFramework</RootNamespace>
-    <AssemblyName>AutomationFramework</AssemblyName>
+    <RootNamespace>EasyAutomation.AutomationFramework</RootNamespace>
+    <AssemblyName>EasyAutomation.AutomationFramework</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Controls\Button.cs" />
     <Compile Include="Core\Arrange.cs" />
+    <Compile Include="Core\Boxing\ElementInformation.cs" />
     <Compile Include="Core\ControlElement.cs" />
     <Compile Include="Core\ControlElementExtensions.cs" />
     <Compile Include="Core\Desktop.cs" />
@@ -57,7 +58,7 @@
     <Compile Include="Test\ITestClass.cs" />
     <Compile Include="Test\TestRunner.cs" />
     <Compile Include="Utility\MouseActions.cs" />
-    <Compile Include="Utility\SearchHelper.cs" />
+    <Compile Include="Utility\PropertyConditionFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Patterns\" />

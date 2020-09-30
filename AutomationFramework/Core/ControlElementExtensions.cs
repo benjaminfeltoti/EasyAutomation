@@ -1,12 +1,6 @@
-﻿using AutomationFramework.Controls;
-using EasyAutomation.AutomationFramework.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EasyAutomation.AutomationFramework.Controls;
 
-namespace AutomationFramework.Core
+namespace EasyAutomation.AutomationFramework.Core
 {
     public static class ControlElementExtensions
     {

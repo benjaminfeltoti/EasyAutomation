@@ -1,10 +1,6 @@
-﻿using AutomationFramework.Test;
+﻿using EasyAutomation.AutomationFramework.Test;
 using EasyAutomation.ExampleTests.CalculatorApp.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
 {

@@ -2,7 +2,7 @@
 
 namespace EasyAutomation.AutomationFramework.Utility
 {
-    public static class SearchHelper
+    public static class PropertyConditionFactory
     {        
         public static PropertyCondition GetConditionByHelpText(string value)
         {

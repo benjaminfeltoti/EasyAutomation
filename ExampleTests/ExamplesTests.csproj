@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5A1B9D41-5474-4DA7-88BE-B6ABF706088F}</ProjectGuid>
+    <ProjectGuid>{E157B1C7-A219-405D-AD90-AED22ACFAAF4}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>EasyAutomation.ExampleTests</RootNamespace>
     <AssemblyName>EasyAutomation.ExampleTests</AssemblyName>

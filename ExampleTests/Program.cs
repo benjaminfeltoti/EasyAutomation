@@ -1,8 +1,4 @@
-﻿using AutomationFramework.Core;
-using AutomationFramework.Test;
-using EasyAutomation.AutomationFramework.Core;
-using EasyAutomation.AutomationFramework.Logging;
-using EasyAutomation.ExampleTests;
+﻿using EasyAutomation.AutomationFramework.Test;
 using EasyAutomation.ExampleTests.CalculatorApp.Tests;
 using System;
 

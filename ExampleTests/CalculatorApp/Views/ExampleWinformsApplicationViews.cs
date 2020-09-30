@@ -1,11 +1,5 @@
-﻿using AutomationFramework.Controls;
-using AutomationFramework.Core;
+﻿using EasyAutomation.AutomationFramework.Controls;
 using EasyAutomation.AutomationFramework.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EasyAutomation.ExampleTests.CalculatorApp.Views
 {

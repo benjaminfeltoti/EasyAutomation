@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutomationFramework.Test
+namespace EasyAutomation.AutomationFramework.Test
 {
     public static class Assert
     {

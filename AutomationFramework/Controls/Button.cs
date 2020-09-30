@@ -1,13 +1,8 @@
 ﻿using EasyAutomation.AutomationFramework.Core;
 using EasyAutomation.AutomationFramework.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Automation;
 
-namespace AutomationFramework.Controls
+namespace EasyAutomation.AutomationFramework.Controls
 {
     public class Button : ControlElement
     {

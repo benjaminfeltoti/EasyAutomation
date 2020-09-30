@@ -1,5 +1,4 @@
-﻿using AutomationFramework.Controls;
-using EasyAutomation.AutomationFramework.Logging;
+﻿using EasyAutomation.AutomationFramework.Logging;
 using EasyAutomation.AutomationFramework.Utility;
 using System;
 using System.Windows;
@@ -67,21 +66,21 @@ namespace EasyAutomation.AutomationFramework.Core
 
         public ControlElement FindChildByName(string name, uint timeout = 5000)
         {
-            ControlElement element = Try.TryGet(() => m_Root.FindFirst(TreeScope.Children, SearchHelper.GetConditionByName(name)), timeout);
+            ControlElement element = Try.TryGet(() => m_Root.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByName(name)), timeout);
 
             return element;
         }
 
         public ControlElement FindDescendantByName(string name, uint timeout = 5000)
         {//TODO : if null throw
-            ControlElement element = Try.TryGet(() => m_Root.FindFirst(TreeScope.Descendants, SearchHelper.GetConditionByName(name)), timeout);
+            ControlElement element = Try.TryGet(() => m_Root.FindFirst(TreeScope.Descendants, PropertyConditionFactory.GetConditionByName(name)), timeout);
 
             return element;
         }
 
         public ControlElement FindChildByAutomationId(string automationId, uint timeout = 5000)
         {
-            ControlElement element = Try.TryGet(() => m_Root.FindFirst(TreeScope.Children, SearchHelper.GetConditionByAutomationId(automationId)), timeout);
+            ControlElement element = Try.TryGet(() => m_Root.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByAutomationId(automationId)), timeout);
 
             return element;
         }
@@ -93,7 +92,7 @@ namespace EasyAutomation.AutomationFramework.Core
         public ControlElement[] FindAllChildren()
         {
             AutomationElementCollection childrenRawCollection = m_Root.FindAll(
-                TreeScope.Children, new NotCondition(SearchHelper.GetConditionByAutomationId(string.Empty)));
+                TreeScope.Children, new NotCondition(PropertyConditionFactory.GetConditionByAutomationId(string.Empty)));
 
             int childrenCount = childrenRawCollection.Count;
 
