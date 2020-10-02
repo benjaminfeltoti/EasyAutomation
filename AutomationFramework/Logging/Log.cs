@@ -67,19 +67,17 @@ namespace EasyAutomation.AutomationFramework.Logging
             switch (textType)
             {
                 case TextType.Error:
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    break;
                 case TextType.Failed:
                 case TextType.FatalError:
                     Console.ForegroundColor = ConsoleColor.Red;
                     break;
                 case TextType.SuccessfulArrangement:
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    break;
                 case TextType.SuccessfulAct:
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                     break;
                 case TextType.SuccessfulAssertion:
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    break;
                 case TextType.Passed:
                     Console.ForegroundColor = ConsoleColor.Green;
                     break;

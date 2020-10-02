@@ -127,7 +127,6 @@ namespace EasyAutomation.AutomationFramework.Core
 
             if (RawElement.TryGetCurrentPattern(automationPattern, out patternObject))
             {
-
                 return patternObject as T;
             }
 

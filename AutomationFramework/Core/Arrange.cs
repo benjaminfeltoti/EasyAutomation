@@ -9,7 +9,9 @@ using System.Windows.Automation;
 namespace EasyAutomation.AutomationFramework.Core
 {
     internal static class Arrange<T>
-    {       
+    {
+        const int applicationResponseTimePingingInterval = 200;
+
         internal static T GetProperty(AutomationElement automationElement, AutomationProperty automationProperty, uint timeLimit = 5000)
         {
             var limit = (int)timeLimit;
@@ -47,7 +49,7 @@ namespace EasyAutomation.AutomationFramework.Core
                         }
                     }
 
-                    Thread.Sleep(200);
+                    Thread.Sleep(applicationResponseTimePingingInterval);
                 }
 
                 return new Tuple<T, ElementInformation>(default, new ElementInformation(name, automationId, localizedControlType));
@@ -57,14 +59,10 @@ namespace EasyAutomation.AutomationFramework.Core
             bool taskIsSuccessfull = task.Wait(limit);
 
             taskCancellationToken.Cancel();
-            taskCancellationToken.Dispose();
 
             var result = task.Result;
 
-            if (task.IsCompleted)
-            {
-                task.Dispose();
-            }
+            CleanUpTask(task, taskCancellationToken);
 
             if (taskIsSuccessfull)
             {
@@ -78,6 +76,16 @@ namespace EasyAutomation.AutomationFramework.Core
 
             Log.Write(errorMessageResult, TextType.FatalError);
             throw new Exception(errorMessageResult);
+        }
+
+        private static void CleanUpTask(Task task, CancellationTokenSource taskCancellationToken)
+        {
+            taskCancellationToken.Dispose();
+
+            if (task.IsCompleted)
+            {
+                task.Dispose();
+            }
         }
 
         //Get with retry times for stability?

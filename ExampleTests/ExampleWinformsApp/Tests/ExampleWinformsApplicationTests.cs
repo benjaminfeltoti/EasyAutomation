@@ -6,9 +6,9 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
 {
     public class ExampleWinformsApplicationTests : IDisposable, ITestClass
     {
-        public Action[] Tests => new Action[1] { () => ThisIsMyFirstTest() };
+        public Action[] Tests => new Action[1] { ThisIsMyFirstTest };
 
-        public bool ThisIsMyFirstTest()
+        public void ThisIsMyFirstTest()
         {
             var view = new ExampleWinformsApplicationViews();
 
@@ -23,12 +23,11 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
                 _ = view.FirstNameTextBox.IsEnabled();
                 _ = view.FirstNameTextBox.IsOffScreen();
             }
-
-            return true;
         }
 
         public void CleanupClass()
         {
+            TestApplication.KillCurrentApplication();
         }
 
         public void CleanupTest()
@@ -41,6 +40,7 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
 
         public void SetupClass()
         {
+            TestApplication.Start(new TestApplicationInformation("ExampleWinformsApplication.exe", "D:\\+Szakdolgozat\\EasyAutomation\\EasyAutomation\\ExampleWinformsApplication\\bin\\Debug"));
         }
 
         public void SetupTest()

@@ -88,9 +88,9 @@ namespace EasyAutomation.AutomationFramework.Core
                 return predicateResult;
 
             }, taskCancellationToken.Token);
-
-            AutomationElement automationElement = task.Result;
+                        
             bool taskIsSuccessfull = task.Wait(limit);
+            AutomationElement automationElement = task.Result;
 
             taskCancellationToken.Cancel();
             taskCancellationToken.Dispose();
