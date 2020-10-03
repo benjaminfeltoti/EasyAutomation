@@ -1,5 +1,6 @@
 ﻿using EasyAutomation.AutomationFramework.Core.Boxing;
 using EasyAutomation.AutomationFramework.Logging;
+using EasyAutomation.AutomationFramework.Test;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -24,11 +25,9 @@ namespace EasyAutomation.AutomationFramework.Core
                 string automationId = "???";
                 string localizedControlType = "???";
 
-                Process[] p = Process.GetProcessesByName("ExampleWinformsApplication");
-
-                while (p.Length > 0 && !taskCancellationToken.IsCancellationRequested)
+                while (!taskCancellationToken.IsCancellationRequested)
                 {
-                    if (p[0].Responding)
+                    if (TestApplication.GetCurrentRunningProcess.Responding)
                     {
                         try
                         {
@@ -52,7 +51,7 @@ namespace EasyAutomation.AutomationFramework.Core
                     Thread.Sleep(applicationResponseTimePingingInterval);
                 }
 
-                return new Tuple<T, ElementInformation>(default, new ElementInformation(name, automationId, localizedControlType));
+                return null;
 
             }, taskCancellationToken.Token);
 

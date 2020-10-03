@@ -56,6 +56,7 @@ namespace EasyAutomation.AutomationFramework.Test
             {
                 Log.Write("Executing CleanupClass()...", TextType.TestName);
                 testClasses[0].CleanupClass();
+                Log.Write("Test execution has ended! \n \n Summary:", TextType.TestName);
             }
             //Log a summary
         }
