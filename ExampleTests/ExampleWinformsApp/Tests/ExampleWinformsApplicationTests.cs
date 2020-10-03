@@ -26,7 +26,7 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
         }
 
         public void CleanupClass()
-        {
+        {            
             TestApplication.KillCurrentApplication();
         }
 

@@ -1,10 +1,6 @@
 ﻿using EasyAutomation.AutomationFramework.Logging;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EasyAutomation.AutomationFramework.Test
 {
@@ -12,9 +8,19 @@ namespace EasyAutomation.AutomationFramework.Test
     {
         static Process process;
 
-        internal static Process CurrentRunningProcess()
+        internal static Process GetCurrentRunningProcess
         {
-            return process;
+            get 
+            {
+                if (process == null)
+                {
+                    var errorMessage = "ERROR : There is no process running!";
+                    Log.Write(errorMessage, TextType.FatalError);
+                    throw new Exception(errorMessage);
+                }
+
+                return process;
+            }            
         }
 
         public static void Start(TestApplicationInformation testApplicationInformation)
@@ -45,6 +51,7 @@ namespace EasyAutomation.AutomationFramework.Test
         {
             if (process == null)
             {
+                Log.Write("WARNING : There was no process to kill!", TextType.Warning);
                 return;
             }
 
@@ -52,17 +59,19 @@ namespace EasyAutomation.AutomationFramework.Test
             {
                 if (process.HasExited)
                 {
+                    Log.Write("WARNING : There was no process to kill!", TextType.Warning);
                     return;
                 }
                 
                 process.Kill();
                 process.WaitForExit();
+                Log.Write("SUCCEEDED : Application was killed successfully!", TextType.SuccessfulAct);
                 process.Exited -= OnApplicationExit;
                 process.Dispose();
             }
-            catch 
+            catch (Exception e)
             {
-            
+                Log.Write($"WARNING : Failed to kill the application! : {e.Message}", TextType.Warning);
             }
         }
 
