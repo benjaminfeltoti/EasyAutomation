@@ -66,21 +66,21 @@ namespace EasyAutomation.AutomationFramework.Core
 
         public ControlElement FindChildByName(string name, uint timeout = 5000)
         {
-            ControlElement element = Try.TryGet(() => m_Root.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByName(name)), timeout);
+            ControlElement element = ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByName(name)), timeout);
 
             return element;
         }
 
         public ControlElement FindDescendantByName(string name, uint timeout = 5000)
         {//TODO : if null throw
-            ControlElement element = Try.TryGet(() => m_Root.FindFirst(TreeScope.Descendants, PropertyConditionFactory.GetConditionByName(name)), timeout);
+            ControlElement element = ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Descendants, PropertyConditionFactory.GetConditionByName(name)), timeout);
 
             return element;
         }
 
         public ControlElement FindChildByAutomationId(string automationId, uint timeout = 5000)
         {
-            ControlElement element = Try.TryGet(() => m_Root.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByAutomationId(automationId)), timeout);
+            ControlElement element = ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByAutomationId(automationId)), timeout);
 
             return element;
         }

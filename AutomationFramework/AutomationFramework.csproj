@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Act.cs" />
+    <Compile Include="Core\ArrangeControl.cs" />
     <Compile Include="Core\Controls\Button.cs" />
     <Compile Include="Core\Arrange.cs" />
     <Compile Include="Core\Boxing\ElementInformation.cs" />
