@@ -12,5 +12,7 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Views
         public Button SubmitButton => RootWindow.FindDescendantByName("SubmitButton").AsButton();
 
         public ControlElement FirstNameTextBox => m_FirstNameTextBox ?? (m_FirstNameTextBox = RootWindow.FindDescendantByName("FirstNameTextBox"));
+
+        public ControlElement LastNameTextBox => (RootWindow.FindDescendantByName("LastNameTextBox"));
     }
 }

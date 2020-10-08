@@ -9,9 +9,11 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
         public Action[] Tests => new Action[1] { ThisIsMyFirstTest };
 
         public void ThisIsMyFirstTest()
-        {
+        {            
             var view = new ExampleWinformsApplicationViews();
 
+            Assert.Equal(view.FirstNameTextBox.IsEnabled, view.LastNameTextBox.IsEnabled, 15000);
+            /*
             for (int i = 0; i < 999; i++)
             {
                 _ = view.FirstNameTextBox.AutomationId();
@@ -23,6 +25,7 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
                 _ = view.FirstNameTextBox.IsEnabled();
                 _ = view.FirstNameTextBox.IsOffScreen();
             }
+            */
         }
 
         public void CleanupClass()

@@ -10,14 +10,22 @@ namespace EasyAutomation.AutomationFramework.Logging
     {
         private static string fileName = "log";
         private static string fileType = ".txt";
+        private static string previousText = "";
 
         static Log()
         {
             NewFile();
         }
 
-        public static void Write(string text, TextType textType = 0)
+        public static void Write(string text, TextType textType = 0, bool ignoreDuplicateLogs = false)
         {
+            if (ignoreDuplicateLogs && previousText == text)
+            {
+                return;
+            }
+
+            previousText = text;
+
             string indentation = GetIndentationString(DefineIndentationLevel(textType));
 
             SetConsoleColor(textType);

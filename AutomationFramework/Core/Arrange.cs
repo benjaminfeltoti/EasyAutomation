@@ -2,7 +2,6 @@
 using EasyAutomation.AutomationFramework.Logging;
 using EasyAutomation.AutomationFramework.Test;
 using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Automation;
@@ -65,8 +64,8 @@ namespace EasyAutomation.AutomationFramework.Core
 
             if (taskIsSuccessfull)
             {
-                Log.Write($"Successful Arrangement : Load property: { automationProperty.ProgrammaticName } on element:" +
-                        $" Name: {result.Item2.Name} AutomationId: {result.Item2.AutomationId} ControlType: {result.Item2.LocalizedControlType}", TextType.SuccessfulArrangement);
+                Log.Write($"Successful Arrangement : Load property: { automationProperty.ProgrammaticName } = {result.Item1} on element:" +
+                        $" Name: {result.Item2.Name} AutomationId: {result.Item2.AutomationId} ControlType: {result.Item2.LocalizedControlType}", TextType.SuccessfulArrangement, true);
                 return result.Item1;
             }
 
