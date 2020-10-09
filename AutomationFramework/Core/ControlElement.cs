@@ -115,9 +115,10 @@ namespace EasyAutomation.AutomationFramework.Core
         /// Returns the core informations of this object.
         /// </summary>
         /// <returns>Returns Name, AutomationId, LocalizedControlType</returns>
-        public override string ToString()
+        public string GetControlInfo(uint timeLimit = 5000)
         {
-            return $"Name: {Name()} AutomationId: {AutomationId()} ControlType: {LocalizedControlType()}";
+            // TODO : Get theese with get properties!
+            return $"Name: {Name(timeLimit)} AutomationId: {AutomationId(timeLimit)} ControlType: {LocalizedControlType(timeLimit)}";
         }
 
         // Todo: Create it's own class.

@@ -51,6 +51,7 @@ namespace EasyAutomation.AutomationFramework.Core
 
             if (taskIsSuccessfull)
             {
+                // TODO : Not safe, use get properties
                 var name = (string)result.GetCurrentPropertyValue(AutomationElement.NameProperty, false);
                 var automationId = (string)result.GetCurrentPropertyValue(AutomationElement.AutomationIdProperty, false);
                 var localizedControlType = (string)result.GetCurrentPropertyValue(AutomationElement.LocalizedControlTypeProperty, false);

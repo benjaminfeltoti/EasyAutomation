@@ -10,11 +10,12 @@ namespace EasyAutomation.AutomationFramework.Controls
         {
         }
 
-        public void Invoke()
+        public void Invoke(bool waitEnables = true, uint timeLimit = 5000, int checkInterval = 300)
         {
-            //Todo : Invoke only if the element is ready and enabled, with fire and forget on an other thread.
-            GetPattern<InvokePattern>(InvokePattern.Pattern).Invoke();
-            Log.Write($"{this.ToString()} button was Invoked!", TextType.SuccessfulAct);
+            var pattern = GetPattern<InvokePattern>(InvokePattern.Pattern);
+            Act.Fire(() => pattern.Invoke(), this, waitEnables, timeLimit, checkInterval);
+
+            Log.Write($"{GetControlInfo(timeLimit)} button was Invoked!", TextType.SuccessfulAct);
         }
     }
 }

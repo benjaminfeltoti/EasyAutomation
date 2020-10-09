@@ -12,7 +12,8 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
         {            
             var view = new ExampleWinformsApplicationViews();
 
-            Assert.Equal(view.FirstNameTextBox.IsEnabled, view.LastNameTextBox.IsEnabled, 15000);
+            view.SubmitButton.Invoke(timeLimit: 15000);
+            //Assert.Equal(view.FirstNameTextBox.IsEnabled, view.LastNameTextBox.IsEnabled, 15000);
             /*
             for (int i = 0; i < 999; i++)
             {
