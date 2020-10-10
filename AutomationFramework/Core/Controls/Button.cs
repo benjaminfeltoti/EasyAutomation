@@ -14,8 +14,6 @@ namespace EasyAutomation.AutomationFramework.Controls
         {
             var pattern = GetPattern<InvokePattern>(InvokePattern.Pattern);
             Act.Fire(() => pattern.Invoke(), this, waitEnables, timeLimit, checkInterval);
-
-            Log.Write($"{GetControlInfo(timeLimit)} button was Invoked!", TextType.SuccessfulAct);
         }
     }
 }

@@ -46,8 +46,8 @@ namespace EasyAutomation.AutomationFramework.Test
                 return;
             }
 
-            Log.Write("ERROR : AssertionFailed : IsFalse : Asserting that arranged value was true failed!", TextType.Failed);
-            throw new Exception("ERROR : AssertionFailed : IsFalse : Asserting that arranged value was true failed!");
+            Log.Write("ERROR : AssertionFailed : IsFalse : Asserting that arranged value was false failed!", TextType.Failed);
+            throw new Exception("ERROR : AssertionFailed : IsFalse : Asserting that arranged value was false failed!");
         }
 
         public static void Equal<T>(Func<uint, T> method1, Func<uint, T> method2, uint timeout = 5000, uint checkInterval = 300)

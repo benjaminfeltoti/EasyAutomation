@@ -39,7 +39,7 @@ namespace ExampleWinformsApplication
         {
             DialogResult dialogResult = MessageBox.Show($"Is your data correct? " +
                 $"\n Name : { FirstNameTextBox.Text } { LastNameTextBox.Text } " +
-                $"\n E-mail adress : { EMailAdressTextBox.Text }" , "Submit", MessageBoxButtons.YesNo);
+                $"\n E-mail adress : { EMailAdressTextBox.Text }", "Submit", MessageBoxButtons.YesNo);
 
             if (dialogResult == DialogResult.Yes)
             {
@@ -100,7 +100,7 @@ namespace ExampleWinformsApplication
             waitDialog.Show();
             waitDialog.Refresh();
 
-            Random r = new Random();            
+            Random r = new Random();
             Thread.Sleep(r.Next(10000, 15000));
 
             waitDialog.Close();

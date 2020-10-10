@@ -17,13 +17,13 @@ namespace EasyAutomation.AutomationFramework.Core
         /// 
         /// </summary>
         /// <param name="predicate"></param>
-        /// <param name="waitEnables">Wait with the fire and forget action until the control is Enabled and IsOffscreen == False</param>
+        /// <param name="waitEnables">Wait until the control is Enabled and IsOffscreen is False then fire and forget the action.</param>
         /// <param name="timeLimit"></param>
         /// <param name="checkInterval"></param>
         /// <returns></returns>
         internal static void Fire(Action actionToExecute, ControlElement control, bool waitEnables = true, uint timeLimit = 5000, int checkInterval = 300)
         {
-            Log.Write($"Act : Waiting enables ...", TextType.SuccessfulAct);
+            Log.Write($"Act : Waiting enables ...", TextType.ActStarted);
 
             var startTime = DateTime.Now;
             var timeoutLimit = (double)timeLimit;
@@ -31,22 +31,29 @@ namespace EasyAutomation.AutomationFramework.Core
             while (DateTime.Now.Subtract(startTime).TotalMilliseconds < timeoutLimit)
             {
                 var properties = Arrange<List<KeyValuePair<AutomationProperty, object>>>.GetProperties(
-                    control.RawElement, new AutomationProperty[2] {
-                        AutomationElement.IsEnabledProperty, AutomationElement.IsOffscreenProperty }, timeLimit);
+                    control.RawElement, new AutomationProperty[5] {
+                        AutomationElement.IsEnabledProperty, AutomationElement.IsOffscreenProperty, AutomationElement.NameProperty,
+                        AutomationElement.AutomationIdProperty, AutomationElement.ControlTypeProperty }, timeLimit);
 
                 bool isEnabled = waitEnables ? (bool)properties.Find(kp => kp.Key == AutomationElement.IsEnabledProperty).Value : false;
                 bool isOffScreen = waitEnables ? (bool)properties.Find(kp => kp.Key == AutomationElement.IsOffscreenProperty).Value : true;
 
                 if ((!waitEnables || isEnabled && !isOffScreen) && TestApplication.GetCurrentRunningProcess.Responding)
                 {
+                    var name = (string)properties.Find(kp => kp.Key == AutomationElement.NameProperty).Value;
+                    var automationId = (string)properties.Find(kp => kp.Key == AutomationElement.AutomationIdProperty).Value;
+                    var localizedControlType = (string)properties.Find(kp => kp.Key == AutomationElement.LocalizedControlTypeProperty).Value;
+                    var elementInfo = $"Name: { name } AutomationId: { automationId } ControlType: { localizedControlType }";
+
                     try
                     {
-                        Log.Write($"Act : Enables were ready, act was fired!", TextType.SuccessfulAct);
-                        Task.Factory.StartNew(actionToExecute); // This still does not sole the issue with on invokeing a dialog.
+                        Log.Write($"Act : Enables were ready, firing act on element : { elementInfo }", TextType.SuccessfulAct);
+                        Task.Factory.StartNew(actionToExecute);
+                        Log.Write("Successful Act : Action was invoked.", TextType.ActEnded);
                     }
                     catch (Exception e)
                     {
-                        var errorMessage = $"ERROR: Act has thrown an exception! : {e.Message}";
+                        var errorMessage = $"ERROR: Act has thrown an exception on element: { elementInfo }  Exception Message : {e.Message}";
                         Log.Write(errorMessage, TextType.FatalError);
                         throw new Exception(errorMessage);
                     }

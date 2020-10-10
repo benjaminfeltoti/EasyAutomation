@@ -5,14 +5,14 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Views
 {
     public class ExampleWinformsApplicationViews
     {
-        ControlElement m_FirstNameTextBox;
+        private ControlElement m_Root;
 
-        public ControlElement RootWindow => Desktop.Root.FindChildByAutomationId("ExamleApplication");
+        public ControlElement RootWindow => m_Root ?? (m_Root = Desktop.Root.FindChildByAutomationId("ExamleApplication"));
 
-        public Button SubmitButton => RootWindow.FindDescendantByName("SubmitButton").AsButton();
+        public Button SubmitButton(uint timeout = 5000) => RootWindow.FindDescendantByName("SubmitButton", timeout).AsButton();
 
-        public ControlElement FirstNameTextBox => m_FirstNameTextBox ?? (m_FirstNameTextBox = RootWindow.FindDescendantByName("FirstNameTextBox"));
+        public ControlElement FirstNameTextBox(uint timeout = 5000) => RootWindow.FindDescendantByName("FirstNameTextBox", timeout);
 
-        public ControlElement LastNameTextBox => (RootWindow.FindDescendantByName("LastNameTextBox"));
+        public ControlElement LastNameTextBox(uint timeout = 5000) => (RootWindow.FindDescendantByName("LastNameTextBox", timeout));
     }
 }

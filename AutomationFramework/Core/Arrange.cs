@@ -168,9 +168,8 @@ namespace EasyAutomation.AutomationFramework.Core
             {
                 stringBuilder.Append(keyValuePair.Key.ProgrammaticName);
                 stringBuilder.Append(" = ");
-                stringBuilder.Append("\n");
                 stringBuilder.Append(keyValuePair.Value.ToString());
-                stringBuilder.Append(" ");
+                stringBuilder.Append(" ; ");
             }
 
             return stringBuilder.ToString();

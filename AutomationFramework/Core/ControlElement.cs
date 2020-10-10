@@ -121,7 +121,7 @@ namespace EasyAutomation.AutomationFramework.Core
             return $"Name: {Name(timeLimit)} AutomationId: {AutomationId(timeLimit)} ControlType: {LocalizedControlType(timeLimit)}";
         }
 
-        // Todo: Create it's own class.
+        // Todo: Move to arrange class within a task
         internal T GetPattern<T>(AutomationPattern automationPattern) where T : BasePattern
         {
             object patternObject;

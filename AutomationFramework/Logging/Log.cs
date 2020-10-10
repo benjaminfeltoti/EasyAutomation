@@ -60,6 +60,9 @@ namespace EasyAutomation.AutomationFramework.Logging
                 case TextType.SuccessfulAct:
                 case TextType.SuccessfulAssertion:
                     return 3;
+                case TextType.ActStarted:
+                case TextType.ActEnded:
+                    return 2;
                 case TextType.Passed:
                 case TextType.TestName:
                 case TextType.Warning:
@@ -87,6 +90,8 @@ namespace EasyAutomation.AutomationFramework.Logging
                     break;
                 case TextType.SuccessfulAssertion:
                 case TextType.Passed:
+                case TextType.ActStarted:
+                case TextType.ActEnded:
                     Console.ForegroundColor = ConsoleColor.Green;
                     break;
                 case TextType.TestName:
