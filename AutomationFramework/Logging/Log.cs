@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 
 namespace EasyAutomation.AutomationFramework.Logging
 {
@@ -11,6 +12,7 @@ namespace EasyAutomation.AutomationFramework.Logging
         private static string fileName = "log";
         private static string fileType = ".txt";
         private static string previousText = "";
+        private static ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
 
         static Log()
         {
@@ -29,12 +31,20 @@ namespace EasyAutomation.AutomationFramework.Logging
             string indentation = GetIndentationString(DefineIndentationLevel(textType));
 
             SetConsoleColor(textType);
-
             Console.WriteLine(indentation + text);
+            
+            _lock.TryEnterWriteLock(new TimeSpan(5000));
 
-            using (StreamWriter streamWriter = new StreamWriter(fileName + fileType, true))
+            try
             {
-                streamWriter.WriteLine(indentation + text);
+                using (StreamWriter streamWriter = new StreamWriter(fileName + fileType, true))
+                {
+                    streamWriter.WriteLine(indentation + text);
+                }
+            }
+            finally
+            {
+                _lock.ExitWriteLock();
             }
         }
 

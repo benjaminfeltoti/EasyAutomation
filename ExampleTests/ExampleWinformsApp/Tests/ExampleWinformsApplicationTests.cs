@@ -1,12 +1,17 @@
 ﻿using EasyAutomation.AutomationFramework.Test;
 using EasyAutomation.ExampleTests.CalculatorApp.Views;
-using System;
 
 namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
 {
-    public class ExampleWinformsApplicationTests : IDisposable, ITestClass
+    public class ExampleWinformsApplicationTests : ITestClass
     {
-        public Action[] Tests => new Action[1] { ThisIsMyFirstTest };
+        ITest[] ITestClass.Tests => new ITest[1] { new Test(Setup, ThisIsMyFirstTest, CleanUp) };
+
+        public void Setup()
+        { }
+
+        public void CleanUp()
+        { }
 
         public void ThisIsMyFirstTest()
         {            
@@ -36,22 +41,10 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
             TestApplication.KillCurrentApplication();
         }
 
-        public void CleanupTest()
-        {
-        }
-
-        public void Dispose()
-        {
-        }
-
         public void SetupClass()
         {
-            TestApplication.Start(new TestApplicationInformation("ExampleWinformsApplication.exe", "D:\\+Szakdolgozat\\EasyAutomation\\EasyAutomation\\ExampleWinformsApplication\\bin\\Debug"));
-        }
-
-        public void SetupTest()
-        {
-
+            TestApplication.StartOrAttach(new TestApplicationInformation("ExampleWinformsApplication.exe", "ExampleWinformsApplication",
+                "D:\\+Szakdolgozat\\EasyAutomation\\EasyAutomation\\ExampleWinformsApplication\\bin\\Debug"));
         }
     }
 }

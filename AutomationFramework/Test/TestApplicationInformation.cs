@@ -10,15 +10,18 @@ namespace EasyAutomation.AutomationFramework.Test
         /// <param name="testApplicationFilePath">Path of the file, where to start it, if it is not at the same directory as this the AutomationFramework.dll</param>
         /// <param name="testApplicationArguments">Arguments to start with the test application. Optional.</param>
         /// <param name="startFullScreen">Set true if the test application has to run fullscreen.</param>
-        public TestApplicationInformation(string testApplicationFileName, string testApplicationFilePath = "", string testApplicationArguments = "", bool startFullScreen = false)
+        public TestApplicationInformation(string testApplicationFileName, string processName, string testApplicationFilePath = "", string testApplicationArguments = "", bool startFullScreen = false)
         {
             TestApplicationFileName = testApplicationFileName;
+            TestApplicationProcessName = processName;
             TestApplicationFilePath = testApplicationFilePath;
             TestApplicationArguments = testApplicationArguments;
             StartFullScreen = startFullScreen;
         }
 
         public string TestApplicationFileName { get; }
+
+        public string TestApplicationProcessName { get; }
 
         public string TestApplicationFilePath { get; }
 

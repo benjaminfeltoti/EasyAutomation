@@ -5,34 +5,38 @@ namespace EasyAutomation.AutomationFramework.Test
 {
     public class TestRunner
     {
-        // LoadTestsThatImplementITest(string namespace)
-
-        public TestRunner()
+        public void RunTests(ITestClass[] testClasses)
         {
-
-        }
-
-        public void RunTests(ITestClass[] testClasses) // return testresults.
-        {
-            try
+            foreach (var currentTestClass in testClasses)
             {
                 Log.Write("Starting test execution...", TextType.TestName);
-                Log.Write("Executing SetupClass()...", TextType.TestName);
-                testClasses[0].SetupClass();
+                RunTestClass(currentTestClass);
+            }
+        }
 
-                foreach (var test in testClasses[0].Tests)
+        private void RunTestClass(ITestClass testClass)
+        {
+            ushort successfulTests = 0;
+            ushort failedTests = 0;
+
+            try
+            {
+                Log.Write($"Starting test class {testClass.GetType().Name} execution...", TextType.TestName);
+                Log.Write("Executing SetupClass()...", TextType.TestName);
+                testClass.SetupClass();
+
+                foreach (var test in testClass.Tests)
                 {
                     bool testResult = true;
-                    
+
                     try
                     {
                         Log.Write("Executing SetupTest()...", TextType.TestName);
-                        testClasses[0].SetupTest();
-                        test.Invoke(); // TODO: Handle if true or false the result.
+                        test.Setup();
+                        test.Method();
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
-                        // Count result
                         testResult = false;
                         Log.Write($"Stack trace : {e.StackTrace}", TextType.Error);
                     }
@@ -40,25 +44,36 @@ namespace EasyAutomation.AutomationFramework.Test
                     {
                         if (testResult)
                         {
-                            Log.Write($"TEST SUCCEEDED : {GetMethodName(test)}", TextType.Passed);
+                            successfulTests++;
+                            Log.Write($"TEST SUCCEEDED : {GetMethodName(test.Method)}", TextType.Passed);
                         }
                         else
                         {
-                            Log.Write($"TEST FAILED : {GetMethodName(test)}", TextType.Failed);
+                            failedTests++;
+                            Log.Write($"TEST FAILED : {GetMethodName(test.Method)}", TextType.Failed);
                         };
 
                         Log.Write("Executing CleanupTest()...", TextType.TestName);
-                        testClasses[0].CleanupTest();
+                        test.Cleanup();
                     }
                 }
             }
             finally
             {
                 Log.Write("Executing CleanupClass()...", TextType.TestName);
-                testClasses[0].CleanupClass();
-                Log.Write("Test execution has ended! \n \n Summary:", TextType.TestName);
+                testClass.CleanupClass();
+                Log.Write("\n TestClass execution has ended! \n", TextType.TestName);
             }
-            //Log a summary
+
+            WriteSummary(testClass.GetType().Name, successfulTests, failedTests);
+        }
+
+
+        private void WriteSummary(string testClassName, ushort numberOfSuccessfulTests, ushort numberOfFailedTests)
+        {
+            Log.Write($"Summary : {testClassName}: ", TextType.TestName);
+            Log.Write($"Successful tests: {numberOfSuccessfulTests}", TextType.SuccessfulAssertion);
+            Log.Write($"Failed tests: {numberOfFailedTests}", TextType.FatalError);
         }
 
         private string GetMethodName(Action action)
