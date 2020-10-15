@@ -33,6 +33,12 @@ namespace EasyAutomation.AutomationFramework.Logging
             SetConsoleColor(textType);
             Console.WriteLine(indentation + text);
             
+            //Arrange classes run async calls delegated to the UI thread. If an exception occurs, when an application closes,-
+            //it will take the streamwriter. But application Exited event gets fired too, which also tries to access the txt for 
+            //logging, ending up with an IO Exception, because the streamwriter did not finish yet.
+            //TODO: It would be a better solution if this class only collects the rows that has to be written into a file, then 
+            //      gets pushed into the file when the application is not running, so we are not getting any unexpected resource
+            //      access request, which could cause cases like this.
             _lock.TryEnterWriteLock(new TimeSpan(5000));
 
             try
