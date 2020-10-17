@@ -91,8 +91,6 @@ namespace EasyAutomation.AutomationFramework.Test
                 process.Kill();
                 process.WaitForExit();
                 Log.Write("SUCCEEDED : Application was killed successfully!", TextType.SuccessfulAct);
-                process.Exited -= OnApplicationExit;
-                process.Dispose();
             }
             catch (Exception e)
             {
