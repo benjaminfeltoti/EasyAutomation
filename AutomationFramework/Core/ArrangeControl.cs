@@ -13,7 +13,7 @@ namespace EasyAutomation.AutomationFramework.Core
         {
             var limit = (int)timeLimit;
 
-            var taskCancellationToken = new CancellationTokenSource();
+            var taskCancellationToken = new CancellationTokenSource(limit);
 
             var task = Task.Factory.StartNew(() =>
             {
@@ -25,7 +25,7 @@ namespace EasyAutomation.AutomationFramework.Core
                     {
                         try
                         {
-                            automationElement = predicate.Invoke();
+                            Task.Run(() => automationElement = predicate.Invoke());
                         }
                         catch (Exception e)
                         {
