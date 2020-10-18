@@ -9,7 +9,7 @@ namespace EasyAutomation.AutomationFramework.Core
 {
     internal static class ArrangeControl
     {
-        internal static ControlElement GetElement(Func<AutomationElement> predicate, uint timeLimit = 5000, int checkInterval = 300)
+        internal static ControlElement GetElement(Func<AutomationElement> predicate, uint timeLimit = 5000)
         {
             var limit = (int)timeLimit;
 
@@ -25,7 +25,7 @@ namespace EasyAutomation.AutomationFramework.Core
                     {
                         try
                         {
-                            Task.Run(() => automationElement = predicate.Invoke());
+                            Task.Run(() => automationElement = predicate.Invoke(), new CancellationTokenSource(SettingsConstants.ApplicationResponseTimePingingIntervalForSearch).Token);
                         }
                         catch (Exception e)
                         {
@@ -36,7 +36,7 @@ namespace EasyAutomation.AutomationFramework.Core
                         }
                     }
                     
-                    Thread.Sleep(checkInterval);
+                    Thread.Sleep(SettingsConstants.ApplicationResponseTimePingingIntervalForSearch);
                 }
 
                 return automationElement;

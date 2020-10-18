@@ -52,6 +52,7 @@
     <Compile Include="Core\ControlElement.cs" />
     <Compile Include="Core\ControlElementExtensions.cs" />
     <Compile Include="Core\Desktop.cs" />
+    <Compile Include="Core\SettingsConstants.cs" />
     <Compile Include="Core\Try.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="Logging\TextType.cs" />

@@ -121,20 +121,5 @@ namespace EasyAutomation.AutomationFramework.Core
             return $"Name: {Name(timeLimit)} AutomationId: {AutomationId(timeLimit)} ControlType: {LocalizedControlType(timeLimit)}";
         }
 
-        // Todo: Move to arrange class within a task
-        internal T GetPattern<T>(AutomationPattern automationPattern) where T : BasePattern
-        {
-            object patternObject;
-
-            if (RawElement.TryGetCurrentPattern(automationPattern, out patternObject))
-            {
-                return patternObject as T;
-            }
-
-            string errorMessage = $"ERROR : It is not possible to get the {typeof(T)} pattern on the object: {this.ToString()}";
-
-            Log.Write(errorMessage, TextType.FatalError);
-            throw new Exception(errorMessage);
-        }
     }
 }
