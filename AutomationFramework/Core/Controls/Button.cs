@@ -1,7 +1,6 @@
-﻿using EasyAutomation.AutomationFramework.Core;
-using System.Windows.Automation;
+﻿using System.Windows.Automation;
 
-namespace EasyAutomation.AutomationFramework.Controls
+namespace EasyAutomation.AutomationFramework.Core.Controls
 {
     public class Button : ControlElement
     {
