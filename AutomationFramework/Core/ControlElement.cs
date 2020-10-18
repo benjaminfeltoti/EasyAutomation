@@ -10,14 +10,12 @@ namespace EasyAutomation.AutomationFramework.Core
     {
         private AutomationElement m_Root;
 
-        //internal?
         public ControlElement(AutomationElement root)
         {
             m_Root = root;
         }
 
-        //internal?
-        public AutomationElement RawElement => m_Root;
+        internal AutomationElement RawElement => m_Root;
 
         public string Name(uint timeout = 5000) => Arrange<string>.GetProperty(RawElement, AutomationElement.NameProperty, timeout);
 
@@ -46,12 +44,14 @@ namespace EasyAutomation.AutomationFramework.Core
         public bool IsOffScreen(uint timeout = 5000) => Arrange<bool>.GetProperty(RawElement, AutomationElement.IsOffscreenProperty, timeout);
 
         public void SetFocus()
-        {//FireAndForget on an other task
-            m_Root.SetFocus();
+        {
+            Log.Write("Setting focus...", TextType.ActStarted);
+            Act.Fire(() => m_Root.SetFocus(), this, false);
         }
 
         public bool TryGetClickablePoint(out Point point)
         {
+            //TODO
             point = new Point();
 
             return m_Root.TryGetClickablePoint(out point);
@@ -59,6 +59,7 @@ namespace EasyAutomation.AutomationFramework.Core
 
         public bool TryGetCurrentPattern(AutomationPattern pattern, out object patternObject)
         {
+            //TODO
             patternObject = null;
 
             return m_Root.TryGetCurrentPattern(pattern, out patternObject);
@@ -66,23 +67,22 @@ namespace EasyAutomation.AutomationFramework.Core
 
         public ControlElement FindChildByName(string name, uint timeout = 5000)
         {
-            ControlElement element = ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByName(name)), timeout);
-
-            return element;
+            return ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByName(name)), timeout);            
         }
 
         public ControlElement FindDescendantByName(string name, uint timeout = 5000)
-        {//TODO : if null throw
-            ControlElement element = ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Descendants, PropertyConditionFactory.GetConditionByName(name)), timeout);
-
-            return element;
+        {
+            return ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Descendants, PropertyConditionFactory.GetConditionByName(name)), timeout);            
         }
 
         public ControlElement FindChildByAutomationId(string automationId, uint timeout = 5000)
         {
-            ControlElement element = ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByAutomationId(automationId)), timeout);
+            return ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByAutomationId(automationId)), timeout);            
+        }
 
-            return element;
+        public ControlElement FindDescendantByAutomationId(string automationId, uint timeout = 5000)
+        {
+            return ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Descendants, PropertyConditionFactory.GetConditionByAutomationId(automationId)), timeout);
         }
 
         //Click wait until enabled and onscreen
@@ -120,6 +120,5 @@ namespace EasyAutomation.AutomationFramework.Core
             // TODO : Get theese with get properties!
             return $"Name: {Name(timeLimit)} AutomationId: {AutomationId(timeLimit)} ControlType: {LocalizedControlType(timeLimit)}";
         }
-
     }
 }

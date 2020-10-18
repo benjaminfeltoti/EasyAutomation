@@ -17,9 +17,10 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
         {            
             var view = new ExampleWinformsApplicationViews();
 
-            view.FirstNameTextBox().Write("HelloThere");
+            view.FemaleRadioButton().SetFocus();
+            view.FemaleRadioButton().Select();
 
-            Assert.Equal(view.FirstNameTextBox().Value, "HelloThere", 5000);
+            Assert.Equal(view.FemaleRadioButton().IsSelected, true, 5000);
             //Assert.Equal(view.FirstNameTextBox.IsEnabled, view.LastNameTextBox.IsEnabled, 15000);
             /*
             for (int i = 0; i < 999; i++)

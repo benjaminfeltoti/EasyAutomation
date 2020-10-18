@@ -51,6 +51,7 @@
     <Compile Include="Core\Boxing\ElementInformation.cs" />
     <Compile Include="Core\ControlElement.cs" />
     <Compile Include="Core\ControlElementExtensions.cs" />
+    <Compile Include="Core\Controls\RadioButton.cs" />
     <Compile Include="Core\Controls\TextBox.cs" />
     <Compile Include="Core\Desktop.cs" />
     <Compile Include="Core\SettingsConstants.cs" />

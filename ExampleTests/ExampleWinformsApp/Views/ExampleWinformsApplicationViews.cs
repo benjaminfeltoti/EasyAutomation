@@ -15,6 +15,11 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Views
 
         public TextBox FirstNameTextBox(uint timeout = 5000) => RootWindow.FindDescendantByName("FirstNameTextBox", timeout).AsTextBox();
 
-        public ControlElement LastNameTextBox(uint timeout = 5000) => (RootWindow.FindDescendantByName("LastNameTextBox", timeout));
+        public TextBox LastNameTextBox(uint timeout = 5000) => RootWindow.FindDescendantByName("LastNameTextBox", timeout).AsTextBox();
+
+        public RadioButton MaleRadioButton(uint timeout = 5000) => RootWindow.FindDescendantByAutomationId("MaleRadioButton", timeout).AsRadioButton();
+
+        public RadioButton FemaleRadioButton(uint timeout = 5000) => RootWindow.FindDescendantByAutomationId("FemaleRadioButton", timeout).AsRadioButton();
+
     }
 }

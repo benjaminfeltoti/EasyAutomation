@@ -1,4 +1,5 @@
-﻿using System.Windows.Automation;
+﻿using EasyAutomation.AutomationFramework.Logging;
+using System.Windows.Automation;
 
 namespace EasyAutomation.AutomationFramework.Core.Controls
 {
@@ -22,6 +23,7 @@ namespace EasyAutomation.AutomationFramework.Core.Controls
 
         public void Write(string value, uint timeLimit = 5000)
         {
+            Log.Write("Writing into textbox...", TextType.ActStarted);
             var pattern = Arrange<ValuePattern>.GetPattern(RawElement, ValuePattern.Pattern, timeLimit);
             Act.Fire(() => pattern.SetValue(value), this, true, timeLimit);
         }
