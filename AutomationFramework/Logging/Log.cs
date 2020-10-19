@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Threading;
 
 namespace EasyAutomation.AutomationFramework.Logging
@@ -9,14 +10,28 @@ namespace EasyAutomation.AutomationFramework.Logging
     /// </summary>
     public static class Log
     {
-        private static string fileName = "log";
         private static string fileType = ".txt";
         private static string previousText = "";
-        private static ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
+        private static string latestFileName = "";
+        private static StringBuilder stringBuilder = new StringBuilder();
 
-        static Log()
+        public static void OpenLog(string fileName)
         {
-            NewFile();
+            var uniqueFileName = MakeFileNameUnique(fileName);
+            latestFileName = uniqueFileName + fileType;
+
+            using (StreamWriter streamWriter = new StreamWriter(latestFileName))
+            {
+                streamWriter.Write("");
+            }
+        }
+
+        public static void CloseLog()
+        {
+            using (StreamWriter streamWriter = new StreamWriter(latestFileName, true))
+            {
+                streamWriter.WriteLine(stringBuilder.ToString());
+            }
         }
 
         public static void Write(string text, TextType textType = 0, bool ignoreDuplicateLogs = false)
@@ -32,26 +47,8 @@ namespace EasyAutomation.AutomationFramework.Logging
 
             SetConsoleColor(textType);
             Console.WriteLine(indentation + text);
-            
-            //Arrange classes run async calls delegated to the UI thread. If an exception occurs, when an application closes,-
-            //it will take the streamwriter. But application Exited event gets fired too, which also tries to access the txt for 
-            //logging, ending up with an IO Exception, because the streamwriter did not finish yet.
-            //TODO: It would be a better solution if this class only collects the rows that has to be written into a file, then 
-            //      gets pushed into the file when the application is not running, so we are not getting any unexpected resource
-            //      access request, which could cause cases like this.
-            _lock.TryEnterWriteLock(new TimeSpan(5000));
 
-            try
-            {
-                using (StreamWriter streamWriter = new StreamWriter(fileName + fileType, true))
-                {
-                    streamWriter.WriteLine(indentation + text);
-                }
-            }
-            finally
-            {
-                _lock.ExitWriteLock();
-            }
+            stringBuilder.AppendLine(indentation + text);
         }
 
         private static string GetIndentationString(ushort indentLevel)
@@ -123,17 +120,7 @@ namespace EasyAutomation.AutomationFramework.Logging
             }
         }
 
-        private static void NewFile()
-        {
-            MakeFileNameUnique();
-
-            using (StreamWriter streamWriter = new StreamWriter(fileName + fileType))
-            {
-                streamWriter.Write("");
-            }
-        }
-
-        private static void MakeFileNameUnique()
+        private static string MakeFileNameUnique(string fileName)
         {
             uint id = 0;
             string newFileName = fileName;
@@ -145,7 +132,7 @@ namespace EasyAutomation.AutomationFramework.Logging
                 newFileName += id;
             }
 
-            fileName = newFileName;
+            return newFileName;
         }
     }
 }

@@ -24,6 +24,11 @@ namespace EasyAutomation.AutomationFramework.Utility
             return new PropertyCondition(AutomationElement.NameProperty, value, PropertyConditionFlags.IgnoreCase);
         }
 
+        public static PropertyCondition GetConditionByControlType(ControlType value)
+        {
+            return new PropertyCondition(AutomationElement.ControlTypeProperty, value, PropertyConditionFlags.IgnoreCase);
+        }
+
         public static PropertyCondition GetConditionByLocalizedControlType(string value)
         {
             return new PropertyCondition(AutomationElement.LocalizedControlTypeProperty, value, PropertyConditionFlags.IgnoreCase);

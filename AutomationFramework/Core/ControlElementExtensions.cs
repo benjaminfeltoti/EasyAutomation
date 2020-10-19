@@ -19,5 +19,20 @@ namespace EasyAutomation.AutomationFramework.Core
         {
             return new RadioButton(root.RawElement);
         }
+
+        public static CheckBox AsCheckBox(this ControlElement root)
+        {
+            return new CheckBox(root.RawElement);
+        }
+
+        public static ComboBox AsComboBox(this ControlElement root)
+        {
+            return new ComboBox(root.RawElement);
+        }
+
+        public static ListItem AsListItem(this ControlElement root)
+        {
+            return new ListItem(root.RawElement);
+        }
     }
 }

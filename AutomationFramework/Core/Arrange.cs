@@ -269,9 +269,11 @@ namespace EasyAutomation.AutomationFramework.Core
 
         private static string GetPropertyFromList(List<KeyValuePair<AutomationProperty, object>> results, AutomationElement automationElement, AutomationProperty property)
         {
-            return (string)(results.Exists(k => k.Key == property)
+            var value = results.Exists(k => k.Key == property)
                                 ? results.Find(k => k.Key == property).Value
-                                : automationElement.GetCurrentPropertyValue(property, true));
+                                : automationElement.GetCurrentPropertyValue(property, false);
+
+            return value is string ? (string)value : "???";
         }
 
         private static void CleanUpTask(Task task, CancellationTokenSource taskCancellationToken)

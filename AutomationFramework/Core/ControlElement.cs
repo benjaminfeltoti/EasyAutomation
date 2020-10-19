@@ -1,6 +1,5 @@
 ﻿using EasyAutomation.AutomationFramework.Logging;
 using EasyAutomation.AutomationFramework.Utility;
-using System;
 using System.Windows;
 using System.Windows.Automation;
 
@@ -8,7 +7,7 @@ namespace EasyAutomation.AutomationFramework.Core
 {
     public class ControlElement
     {
-        private AutomationElement m_Root;
+        protected AutomationElement m_Root;
 
         public ControlElement(AutomationElement root)
         {
@@ -77,7 +76,7 @@ namespace EasyAutomation.AutomationFramework.Core
 
         public ControlElement FindChildByAutomationId(string automationId, uint timeout = 5000)
         {
-            return ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByAutomationId(automationId)), timeout);            
+            return ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByAutomationId(automationId)), timeout);
         }
 
         public ControlElement FindDescendantByAutomationId(string automationId, uint timeout = 5000)
@@ -87,12 +86,14 @@ namespace EasyAutomation.AutomationFramework.Core
 
         //Click wait until enabled and onscreen
         //public void Click();
-        // .As casting
-
+        
         public ControlElement[] FindAllChildren()
         {
             AutomationElementCollection childrenRawCollection = m_Root.FindAll(
-                TreeScope.Children, new NotCondition(PropertyConditionFactory.GetConditionByAutomationId(string.Empty)));
+                TreeScope.Children, new OrCondition(
+                    new NotCondition(PropertyConditionFactory.GetConditionByAutomationId(string.Empty)),
+                    new NotCondition(PropertyConditionFactory.GetConditionByName(string.Empty))
+                ));
 
             int childrenCount = childrenRawCollection.Count;
 

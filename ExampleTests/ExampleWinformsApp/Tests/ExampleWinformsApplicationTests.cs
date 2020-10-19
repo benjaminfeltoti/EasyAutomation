@@ -17,10 +17,13 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
         {            
             var view = new ExampleWinformsApplicationViews();
 
-            view.FemaleRadioButton().SetFocus();
+            view.FirstNameTextBox().Write("Tamás");
+            view.LastNameTextBox().Write("János");
             view.FemaleRadioButton().Select();
-
-            Assert.Equal(view.FemaleRadioButton().IsSelected, true, 5000);
+            view.EmailTextBox().Write("janos.tamas@aaa.hu");
+            view.LanguageComboBox().Select("German");
+            view.NewsLetterCheckBox().UnCheck();
+            
             //Assert.Equal(view.FirstNameTextBox.IsEnabled, view.LastNameTextBox.IsEnabled, 15000);
             /*
             for (int i = 0; i < 999; i++)

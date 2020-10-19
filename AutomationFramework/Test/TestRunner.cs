@@ -9,8 +9,10 @@ namespace EasyAutomation.AutomationFramework.Test
         {
             foreach (var currentTestClass in testClasses)
             {
+                Log.OpenLog(currentTestClass.GetType().Name);
                 Log.Write("Starting test execution...", TextType.TestName);
                 RunTestClass(currentTestClass);
+                Log.CloseLog();
             }
         }
 

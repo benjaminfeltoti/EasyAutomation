@@ -41,7 +41,8 @@ namespace EasyAutomation.AutomationFramework.Core
                 if ((!waitEnables || isEnabled && !isOffScreen) && TestApplication.GetCurrentRunningProcess.Responding)
                 {
                     var name = (string)properties.Find(kp => kp.Key == AutomationElement.NameProperty).Value;
-                    var automationId = (string)properties.Find(kp => kp.Key == AutomationElement.AutomationIdProperty).Value;
+                    var automationIdTemp = properties.Find(kp => kp.Key == AutomationElement.AutomationIdProperty).Value;
+                    var automationId = automationIdTemp is string ? (string)automationIdTemp : "???";
                     var localizedControlType = (string)properties.Find(kp => kp.Key == AutomationElement.LocalizedControlTypeProperty).Value;
                     var elementInfo = $"Name: { name } AutomationId: { automationId } ControlType: { localizedControlType }";
 
