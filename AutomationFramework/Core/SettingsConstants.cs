@@ -5,6 +5,6 @@ namespace EasyAutomation.AutomationFramework.Core
     {
         internal const int ApplicationResponseTimePingingIntervalForProperties = 200;
 
-        internal const int ApplicationResponseTimePingingIntervalForSearch = 500;
+        internal const int ApplicationResponseTimePingingIntervalForElementSearch = 500;
     }
 }

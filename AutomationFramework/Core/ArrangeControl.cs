@@ -25,7 +25,7 @@ namespace EasyAutomation.AutomationFramework.Core
                     {
                         try
                         {
-                            Task.Run(() => automationElement = predicate.Invoke(), new CancellationTokenSource(SettingsConstants.ApplicationResponseTimePingingIntervalForSearch).Token);
+                            Task.Run(() => automationElement = predicate.Invoke(), new CancellationTokenSource(SettingsConstants.ApplicationResponseTimePingingIntervalForElementSearch).Token);
                         }
                         catch (Exception e)
                         {
@@ -36,7 +36,7 @@ namespace EasyAutomation.AutomationFramework.Core
                         }
                     }
                     
-                    Thread.Sleep(SettingsConstants.ApplicationResponseTimePingingIntervalForSearch);
+                    Thread.Sleep(SettingsConstants.ApplicationResponseTimePingingIntervalForElementSearch);
                 }
 
                 return automationElement;
