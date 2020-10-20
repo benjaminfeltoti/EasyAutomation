@@ -38,7 +38,7 @@ namespace EasyAutomation.AutomationFramework.Core
                 bool isEnabled = waitEnables ? (bool)properties.Find(kp => kp.Key == AutomationElement.IsEnabledProperty).Value : false;
                 bool isOffScreen = waitEnables ? (bool)properties.Find(kp => kp.Key == AutomationElement.IsOffscreenProperty).Value : true;
 
-                if ((!waitEnables || isEnabled && !isOffScreen) && TestApplication.GetCurrentRunningProcess.Responding)
+                if ((!waitEnables || (isEnabled && !isOffScreen)) && TestApplication.GetCurrentRunningProcess.Responding)
                 {
                     var name = (string)properties.Find(kp => kp.Key == AutomationElement.NameProperty).Value;
                     var automationIdTemp = properties.Find(kp => kp.Key == AutomationElement.AutomationIdProperty).Value;
@@ -50,7 +50,7 @@ namespace EasyAutomation.AutomationFramework.Core
                     {
                         Log.Write($"Act : Enables were ready, firing act on element : { elementInfo }", TextType.SuccessfulAct);
                         Task.Factory.StartNew(actionToExecute);
-                        Log.Write("Successful Act : Action was invoked.", TextType.ActEnded);
+                        Log.Write("Successful Act : Action was invoked.", TextType.SuccessfulAct);
                     }
                     catch (Exception e)
                     {

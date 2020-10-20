@@ -21,23 +21,32 @@ namespace EasyAutomation.AutomationFramework.Core.Controls
         public void Check(uint timeLimit = 5000)
         {
             Log.Write("Checking checkbox...", TextType.ActStarted);
-            var pattern = Arrange<TogglePattern>.GetPattern(RawElement, TogglePattern.Pattern, timeLimit);
-
+            
             if (!IsChecked(timeLimit))
             {
-                Act.Fire(() => pattern.Toggle(), this, true, timeLimit);
+                Toggle(timeLimit);
             }
+
+            Log.Write("Checking checkbox has been done!", TextType.ActEnded);
         }
 
         public void UnCheck(uint timeLimit = 5000)
         {
             Log.Write("Unchecking checkbox...", TextType.ActStarted);
-            var pattern = Arrange<TogglePattern>.GetPattern(RawElement, TogglePattern.Pattern, timeLimit);
-
+            
             if (IsChecked(timeLimit))
             {
-                Act.Fire(() => pattern.Toggle(), this, true, timeLimit);
+                Toggle(timeLimit);
             }
+
+            Log.Write("Unchecking checkbox has been done!", TextType.ActEnded);
+        }
+
+        private void Toggle(uint timeLimit)
+        {
+            SetFocus();
+            var pattern = Arrange<TogglePattern>.GetPattern(RawElement, TogglePattern.Pattern, timeLimit);
+            Act.Fire(() => pattern.Toggle(), this, true, timeLimit);
         }
 
         #endregion

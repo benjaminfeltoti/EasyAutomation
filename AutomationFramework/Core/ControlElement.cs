@@ -46,6 +46,7 @@ namespace EasyAutomation.AutomationFramework.Core
         {
             Log.Write("Setting focus...", TextType.ActStarted);
             Act.Fire(() => m_Root.SetFocus(), this, false);
+            Log.Write("Setting focus has been done!", TextType.ActEnded);
         }
 
         public bool TryGetClickablePoint(out Point point)
