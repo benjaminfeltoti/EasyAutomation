@@ -80,12 +80,13 @@ namespace EasyAutomation.AutomationFramework.Test
             bool predicateEqualsValue = false;
             var startTime = DateTime.Now;
             var timeoutLimit = (double)timeout;
+            string resultValue = "";
 
             while (DateTime.Now.Subtract(startTime).TotalMilliseconds < timeoutLimit && predicateEqualsValue == false)
             {
-                var result1 = predicate.Invoke(timeout);
-
-                predicateEqualsValue = result1.Equals(value);
+                var result = predicate.Invoke(timeout);
+                resultValue = result.ToString();
+                predicateEqualsValue = result.Equals(value);
                 Thread.Sleep((int)checkInterval);
             }
 
@@ -95,7 +96,7 @@ namespace EasyAutomation.AutomationFramework.Test
                 return;
             }
 
-            Log.Write("ERROR : AssertionFailed : Equal : Asserting that arranged values are equal has failed!", TextType.Failed);
+            Log.Write($"ERROR : AssertionFailed : Equal : Asserting that arranged values are equal has failed! Expected value: {value.ToString()} But it was: {resultValue}", TextType.Failed);
             throw new Exception("ERROR : AssertionFailed : Equal : Asserting that arranged values are equal has failed!");
         }
     }

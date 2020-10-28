@@ -42,13 +42,22 @@ namespace EasyAutomation.AutomationFramework.Core
 
         public bool IsOffScreen(uint timeout = 5000) => Arrange<bool>.GetProperty(RawElement, AutomationElement.IsOffscreenProperty, timeout);
 
-        public void SetFocus()
+        public void SetFocus(uint timeout = 5000)
         {
             Log.Write("Setting focus...", TextType.ActStarted);
-            Act.Fire(() => m_Root.SetFocus(), this, false);
+            Act.Fire(() => m_Root.SetFocus(), this, false, timeout);
             Log.Write("Setting focus has been done!", TextType.ActEnded);
         }
 
+        public void Click(bool waitEnables = true, uint timeout = 5000)
+        {
+            Log.Write("Clicking on element...", TextType.ActStarted);
+            SetFocus();
+            var rectangle = BoundingRectangle(timeout);            
+            Act.Fire(() => Mouse.Click((uint)(rectangle.Left + rectangle.Width / 2), (uint)(rectangle.Top + rectangle.Height / 2)), this, waitEnables, timeout);
+            Log.Write("Click was done!", TextType.ActEnded);
+        }
+        /*
         public bool TryGetClickablePoint(out Point point)
         {
             //TODO
@@ -64,7 +73,7 @@ namespace EasyAutomation.AutomationFramework.Core
 
             return m_Root.TryGetCurrentPattern(pattern, out patternObject);
         }
-
+        */
         public ControlElement FindChildByName(string name, uint timeout = 5000)
         {
             return ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByName(name)), timeout);            
@@ -85,9 +94,11 @@ namespace EasyAutomation.AutomationFramework.Core
             return ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Descendants, PropertyConditionFactory.GetConditionByAutomationId(automationId)), timeout);
         }
 
-        //Click wait until enabled and onscreen
-        //public void Click();
-        
+        public ControlElement FindChildByControlType(ControlType controlType, uint timeout = 5000)
+        {
+            return ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByControlType(controlType)), timeout);
+        }
+                
         public ControlElement[] FindAllChildren()
         {
             AutomationElementCollection childrenRawCollection = m_Root.FindAll(

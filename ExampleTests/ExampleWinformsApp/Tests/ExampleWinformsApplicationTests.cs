@@ -1,4 +1,5 @@
-﻿using EasyAutomation.AutomationFramework.Test;
+﻿using EasyAutomation.AutomationFramework.Core;
+using EasyAutomation.AutomationFramework.Test;
 using EasyAutomation.ExampleTests.CalculatorApp.Views;
 
 namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
@@ -23,21 +24,18 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
             view.EmailTextBox().Write("janos.tamas@aaa.hu");
             view.LanguageComboBox().Select("German");
             view.NewsLetterCheckBox().UnCheck();
-            
-            //Assert.Equal(view.FirstNameTextBox.IsEnabled, view.LastNameTextBox.IsEnabled, 15000);
-            /*
-            for (int i = 0; i < 999; i++)
-            {
-                _ = view.FirstNameTextBox.AutomationId();
-                _ = view.FirstNameTextBox.Name();
-                _ = view.FirstNameTextBox.ClassName();
-                _ = view.FirstNameTextBox.HelpText();
-                _ = view.FirstNameTextBox.BoundingRectangle();
-                _ = view.FirstNameTextBox.LocalizedControlType();
-                _ = view.FirstNameTextBox.IsEnabled();
-                _ = view.FirstNameTextBox.IsOffScreen();
-            }
-            */
+            view.SubmitButton().Click();
+
+            Assert.Equal(view.SubmitWindowText().Name, $"Is your data correct? \n Name : Tamás János \n E-mail adress : janos.tamas@aaa.hu");
+
+            view.SubmitWindowYesButton().Click();
+
+            view.RootWindow.FindDescendantByName("OK", 25000).AsButton().Click();
+
+            Assert.Equal(view.FirstNameTextBox().Value, "");
+            Assert.Equal(view.LastNameTextBox().Value, "");
+            Assert.Equal(view.EmailTextBox().Value, "");
+            Assert.Equal(view.SubmitButton().IsEnabled, false);
         }
 
         public void CleanupClass()

@@ -1,5 +1,6 @@
 ﻿using EasyAutomation.AutomationFramework.Core;
 using EasyAutomation.AutomationFramework.Core.Controls;
+using System.Windows.Automation;
 
 namespace EasyAutomation.ExampleTests.CalculatorApp.Views
 {
@@ -26,5 +27,11 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Views
         public ComboBox LanguageComboBox(uint timeout = 5000) => RootWindow.FindDescendantByAutomationId("LanguageComboBox", timeout).AsComboBox();
 
         public CheckBox NewsLetterCheckBox(uint timeout = 5000) => RootWindow.FindDescendantByAutomationId("SubscribeNewsletterCheckBox", timeout).AsCheckBox();
+
+        public ControlElement SubmitWindow(uint timeout = 5000) =>  RootWindow.FindChildByControlType(ControlType.Window, timeout);
+
+        public ControlElement SubmitWindowText(uint timeout = 5000) => SubmitWindow(timeout).FindChildByControlType(ControlType.Text, timeout);
+
+        public Button SubmitWindowYesButton(uint timeout = 5000) => SubmitWindow(timeout).FindChildByName("Yes", timeout).AsButton();
     }
 }

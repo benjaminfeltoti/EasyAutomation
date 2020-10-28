@@ -1,6 +1,7 @@
 ﻿using EasyAutomation.AutomationFramework.Logging;
 using EasyAutomation.AutomationFramework.Test;
 using System;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Automation;
@@ -25,7 +26,17 @@ namespace EasyAutomation.AutomationFramework.Core
                     {
                         try
                         {
-                            Task.Run(() => automationElement = predicate.Invoke(), new CancellationTokenSource(SettingsConstants.ApplicationResponseTimePingingIntervalForElementSearch).Token);
+                            Task.Run(
+                                () =>
+                                {
+                                    try
+                                    {
+                                        automationElement = predicate.Invoke();
+                                    }
+                                    catch (COMException e)
+                                    { }
+                                }
+                                , new CancellationTokenSource(SettingsConstants.ApplicationResponseTimePingingIntervalForElementSearch).Token);
                         }
                         catch (Exception e)
                         {
@@ -35,7 +46,7 @@ namespace EasyAutomation.AutomationFramework.Core
                             throw new Exception(errorMessage);
                         }
                     }
-                    
+
                     Thread.Sleep(SettingsConstants.ApplicationResponseTimePingingIntervalForElementSearch);
                 }
 
