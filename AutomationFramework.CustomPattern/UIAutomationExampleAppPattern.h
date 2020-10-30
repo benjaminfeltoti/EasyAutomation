@@ -25,9 +25,9 @@ public:
 	}
 
 	//IUnknown
-	IFACEMETHOD(ULONG, AddRef)();
-	IFACEMETHOD(ULONG, Release)();
-	IFACEMETHOD(QuaryInterface)(REFIID riid, void** ppInterface);
+	IFACEMETHOD_(ULONG, AddRef)();
+	IFACEMETHOD_(ULONG, Release)();
+	IFACEMETHOD(QueryInterface)(REFIID riid, void** ppInterface);
 
 	//IExampleAppPattern
 	STDMETHOD(SetInputPath)(LPCWSTR path);

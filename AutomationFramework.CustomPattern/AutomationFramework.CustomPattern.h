@@ -19,12 +19,12 @@ namespace AutomationFrameworkCustomPattern
 		static int registerExampleAppPatternId;
 	};
 
-	[ComImportAttribute]
-	[InterfaceTypeAttribute(ComInterfaceType::InterfaceIsIUnknown)]
-	[Guid("")]
+	[ComImport]
+	[InterfaceType(ComInterfaceType::InterfaceIsIUnknown)]
+	[Guid("DA1DA733-821A-4B97-AEE3-5D058F88E60E")]
 	public interface class IExampleAppPattern
 	{
-		[MethodImpl(MethodImplOptions::InternCall)]
-		void SetInputPath([in][MarshalAs(UnmanagedType::BStr)] String^ path);
+		[MethodImpl(MethodImplOptions::InternalCall)]
+		void SetInputPath([In][MarshalAs(UnmanagedType::BStr)] String^ path);
 	};
 }

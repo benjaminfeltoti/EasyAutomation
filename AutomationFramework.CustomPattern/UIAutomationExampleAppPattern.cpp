@@ -2,7 +2,7 @@
 #include "UIAutomationExampleAppPattern.h"
 #include "IUIAutomationExampleAppPatternProvider.h"
 
-const GUID UIAutomationExampleAppPattern::PatternGuid = { {} };
+const GUID UIAutomationExampleAppPattern::PatternGuid = { 0xda1da733, 0x821a, 0x4b97, { 0xae, 0xe3, 0x5d, 0x5, 0x8f, 0x88, 0xe6, 0xe } };
 
 const LPCWSTR UIAutomationExampleAppPattern::PatternName = L"ExampleAppPattern";
 UIAutomationType UIAutomationExampleAppPattern::ParamType = { UIAutomationType_String };
