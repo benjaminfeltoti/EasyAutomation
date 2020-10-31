@@ -47,7 +47,7 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
         public void SetupClass()
         {
             TestApplication.StartOrAttach(new TestApplicationInformation("ExampleWinformsApplication.exe", "ExampleWinformsApplication",
-                "D:\\+Szakdolgozat\\EasyAutomation\\EasyAutomation\\ExampleWinformsApplication\\bin\\Debug"));
+                "D:\\+Szakdolgozat\\EasyAutomation\\EasyAutomation\\ExampleWinformsApplication\\bin\\x64\\Debug"));
         }
     }
 }
