@@ -40,7 +40,7 @@
             this.MaleRadioButton = new System.Windows.Forms.RadioButton();
             this.FemaleRadioButton = new System.Windows.Forms.RadioButton();
             this.GenderLabel = new System.Windows.Forms.Label();
-            this.LastNameLabel = new System.Windows.Forms.Label();
+            this.LastNameLabel = new CustomLabelWithPattern();
             this.LastNameTextBox = new System.Windows.Forms.TextBox();
             this.FirstNameTextBox = new System.Windows.Forms.TextBox();
             this.FirstNameLabel = new System.Windows.Forms.Label();
@@ -558,7 +558,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox RegistrationForm;
-        private System.Windows.Forms.Label LastNameLabel;
+        private CustomLabelWithPattern LastNameLabel;
         private System.Windows.Forms.TextBox LastNameTextBox;
         private System.Windows.Forms.TextBox FirstNameTextBox;
         private System.Windows.Forms.RadioButton FemaleRadioButton;

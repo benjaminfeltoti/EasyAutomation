@@ -53,6 +53,7 @@
     <Compile Include="Core\ControlElementExtensions.cs" />
     <Compile Include="Core\Controls\CheckBox.cs" />
     <Compile Include="Core\Controls\ComboBox.cs" />
+    <Compile Include="Core\Controls\CustomLabelWithPattern.cs" />
     <Compile Include="Core\Controls\ListItem.cs" />
     <Compile Include="Core\Controls\RadioButton.cs" />
     <Compile Include="Core\Controls\TextBox.cs" />
@@ -73,6 +74,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\Patterns\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutomationFramework.CustomPattern\AutomationFramework.CustomPattern.vcxproj">
+      <Project>{a4834de6-309a-4cc2-9162-1452bc7d1825}</Project>
+      <Name>AutomationFramework.CustomPattern</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

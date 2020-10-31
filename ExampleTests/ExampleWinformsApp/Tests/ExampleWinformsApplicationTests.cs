@@ -18,6 +18,7 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
         {            
             var view = new ExampleWinformsApplicationViews();
 
+            view.CustomLabel().SetDatabaseConnectionPath("NEWPATH.txt");
             view.FirstNameTextBox().Write("Tamás");
             view.LastNameTextBox().Write("János");
             view.FemaleRadioButton().Select();

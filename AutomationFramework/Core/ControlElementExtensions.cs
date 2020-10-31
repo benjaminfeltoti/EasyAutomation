@@ -34,5 +34,10 @@ namespace EasyAutomation.AutomationFramework.Core
         {
             return new ListItem(root.RawElement);
         }
+
+        public static CustomLabelWithPattern AsCustomLabelWithPattern(this ControlElement root)
+        {
+            return new CustomLabelWithPattern(root.RawElement);
+        }
     }
 }

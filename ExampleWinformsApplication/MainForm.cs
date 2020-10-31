@@ -9,8 +9,6 @@ namespace ExampleWinformsApplication
 {
     public partial class ExamleApplication : Form
     {
-        public string DatabaseFileName;
-
         private List<string> databaseListBoxItems = new List<string>();
 
         private int indexOfSelection = -1;
@@ -21,7 +19,7 @@ namespace ExampleWinformsApplication
 
             ViewSelectionComboBox.SelectedIndex = 0;
             LanguageComboBox.SelectedIndex = 0;
-            DatabaseFileName = "database.txt";
+            DataBaseFile.Path = "database.txt";
             EditLanguageComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
@@ -74,7 +72,7 @@ namespace ExampleWinformsApplication
 
         private void UploadToDatabase()
         {
-            using (StreamWriter streamWriter = new StreamWriter(DatabaseFileName, true))
+            using (StreamWriter streamWriter = new StreamWriter(DataBaseFile.Path, true))
             {
                 streamWriter.Write($"\n{ FirstNameTextBox.Text } { LastNameTextBox.Text } { (MaleRadioButton.Checked ? "Male" : "Female") } { EMailAdressTextBox.Text } { LanguageComboBox.SelectedItem } { SubscribeNewsletterCheckBox.Checked }");
             }
@@ -85,9 +83,9 @@ namespace ExampleWinformsApplication
             DataBaseListBox.Items.Clear();
             databaseListBoxItems = new List<string>();
 
-            if (File.Exists(DatabaseFileName))
+            if (File.Exists(DataBaseFile.Path))
             {
-                using (StreamReader streamReader = new StreamReader(DatabaseFileName, true))
+                using (StreamReader streamReader = new StreamReader(DataBaseFile.Path, true))
                 {
                     while (!streamReader.EndOfStream)
                     {
@@ -213,11 +211,11 @@ namespace ExampleWinformsApplication
 
         private void EditDatabase()
         {
-            string[] lines = File.ReadAllLines(DatabaseFileName);
+            string[] lines = File.ReadAllLines(DataBaseFile.Path);
 
             lines[indexOfSelection] = ReadDataFromEditForm();
 
-            using (StreamWriter streamWriter = new StreamWriter(DatabaseFileName, false))
+            using (StreamWriter streamWriter = new StreamWriter(DataBaseFile.Path, false))
             {
                 foreach (var line in lines)
                 {

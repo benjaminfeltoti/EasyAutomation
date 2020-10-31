@@ -33,5 +33,7 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Views
         public ControlElement SubmitWindowText(uint timeout = 5000) => SubmitWindow(timeout).FindChildByControlType(ControlType.Text, timeout);
 
         public Button SubmitWindowYesButton(uint timeout = 5000) => SubmitWindow(timeout).FindChildByName("Yes", timeout).AsButton();
+
+        public CustomLabelWithPattern CustomLabel(uint timeout = 5000) => RootWindow.FindDescendantByName("LastNameLabel", timeout).AsCustomLabelWithPattern();
     }
 }
