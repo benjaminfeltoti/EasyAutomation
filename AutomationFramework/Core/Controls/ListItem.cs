@@ -16,6 +16,7 @@ namespace EasyAutomation.AutomationFramework.Core.Controls
             Log.Write("Scrolling to list item...", TextType.ActStarted);
             var pattern = Arrange<ScrollItemPattern>.GetPattern(RawElement, ScrollItemPattern.Pattern, timeLimit);
             Act.Fire(() => pattern.ScrollIntoView(), this, false, timeLimit);
+            Log.Write("Scrollint to list item was done!", TextType.ActEnded);
         }
 
         #endregion
@@ -24,6 +25,7 @@ namespace EasyAutomation.AutomationFramework.Core.Controls
 
         public bool IsSelected(uint timeLimit = 5000)
         {
+            Log.Write("Getting IsSelected value...", TextType.ActStarted);
             return Arrange<bool>.GetProperty(RawElement, SelectionItemPattern.IsSelectedProperty, timeLimit);
         }
 

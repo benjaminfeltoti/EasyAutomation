@@ -13,6 +13,7 @@ namespace EasyAutomation.AutomationFramework.Core.Controls
 
         public bool IsSelected(uint timeLimit = 5000)
         {
+            Log.Write("Getting IsSelected value from RadioButton...", TextType.SuccessfulArrangement);
             return Arrange<bool>.GetProperty(RawElement, SelectionItemPattern.IsSelectedProperty, timeLimit);
         }
 
@@ -21,6 +22,7 @@ namespace EasyAutomation.AutomationFramework.Core.Controls
             Log.Write("Selecting radiobutton...", TextType.ActStarted);
             var pattern = Arrange<SelectionItemPattern>.GetPattern(RawElement, SelectionItemPattern.Pattern, timeLimit);
             Act.Fire(() => pattern.Select(), this, true, timeLimit);
+            Log.Write("Selection of radiobutton was done!", TextType.ActEnded);
         }
 
         #endregion

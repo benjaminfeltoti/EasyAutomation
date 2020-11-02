@@ -23,7 +23,7 @@ namespace EasyAutomation.AutomationFramework.Core
         /// <returns></returns>
         internal static void Fire(Action actionToExecute, ControlElement control, bool waitEnables = true, uint timeLimit = 5000, int checkInterval = 300)
         {
-            Log.Write($"Act : Waiting enables ...", TextType.ActStarted);
+            Log.Write($"Act : Waiting enables ...", TextType.SuccessfulAct);
 
             var startTime = DateTime.Now;
             var timeoutLimit = (double)timeLimit;

@@ -11,9 +11,10 @@ namespace EasyAutomation.AutomationFramework.Logging
         SuccessfulAssertion = 5,
         Passed = 6,
         Failed = 7,
-        TestName = 8,
-        Warning = 9,
-        ActStarted = 10,
-        ActEnded = 11
+        TestClassName = 8,
+        TestName = 9,
+        Warning = 10,
+        ActStarted = 11,
+        ActEnded = 12
     }
 }

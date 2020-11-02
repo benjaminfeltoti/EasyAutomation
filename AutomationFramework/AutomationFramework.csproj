@@ -63,9 +63,7 @@
     <Compile Include="Utility\MouseActions.cs" />
     <Compile Include="Core\Search\PropertyConditionFactory.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Patterns\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\AutomationFramework.CustomPattern\AutomationFramework.CustomPattern.vcxproj">
       <Project>{a4834de6-309a-4cc2-9162-1452bc7d1825}</Project>

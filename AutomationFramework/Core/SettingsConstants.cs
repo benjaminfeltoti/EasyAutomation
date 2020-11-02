@@ -1,10 +1,10 @@
 ﻿
 namespace EasyAutomation.AutomationFramework.Core
 {
-    internal static class SettingsConstants
+    public static class SettingsConstants
     {
-        internal const int ApplicationResponseTimePingingIntervalForProperties = 200;
+        public static int ApplicationResponseTimePingingIntervalForProperties = 200;
 
-        internal const int ApplicationResponseTimePingingIntervalForElementSearch = 500;
+        public static int ApplicationResponseTimePingingIntervalForElementSearch = 500;
     }
 }

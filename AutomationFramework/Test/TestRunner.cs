@@ -10,7 +10,7 @@ namespace EasyAutomation.AutomationFramework.Test
             foreach (var currentTestClass in testClasses)
             {
                 Log.OpenLog(currentTestClass.GetType().Name);
-                Log.Write("Starting test execution...", TextType.TestName);
+                Log.Write("Starting test execution...", TextType.TestClassName);
                 RunTestClass(currentTestClass);
                 Log.CloseLog();
             }
@@ -23,9 +23,10 @@ namespace EasyAutomation.AutomationFramework.Test
 
             try
             {
-                Log.Write($"Starting test class {testClass.GetType().Name} execution...", TextType.TestName);
-                Log.Write("Executing SetupClass()...", TextType.TestName);
+                Log.Write($"Starting test class {testClass.GetType().Name} execution...", TextType.TestClassName);
+                Log.Write("Executing SetupClass()...", TextType.TestClassName);
                 testClass.SetupClass();
+                Log.Write("Executing SetupClass() was done!", TextType.TestClassName);
 
                 foreach (var test in testClass.Tests)
                 {
@@ -35,6 +36,9 @@ namespace EasyAutomation.AutomationFramework.Test
                     {
                         Log.Write("Executing SetupTest()...", TextType.TestName);
                         test.Setup();
+                        Log.Write("Executing SetupTest() was done!", TextType.TestName);
+
+                        Log.Write($"\n Executing test : {GetMethodName(test.Method)}", TextType.TestName);
                         test.Method();
                     }
                     catch (Exception e)
@@ -55,16 +59,16 @@ namespace EasyAutomation.AutomationFramework.Test
                             Log.Write($"TEST FAILED : {GetMethodName(test.Method)}", TextType.Failed);
                         };
 
-                        Log.Write("Executing CleanupTest()...", TextType.TestName);
+                        Log.Write("Executing CleanupTest()...", TextType.TestClassName);
                         test.Cleanup();
                     }
                 }
             }
             finally
             {
-                Log.Write("Executing CleanupClass()...", TextType.TestName);
+                Log.Write("Executing CleanupClass()...", TextType.TestClassName);
                 testClass.CleanupClass();
-                Log.Write("\n TestClass execution has ended! \n", TextType.TestName);
+                Log.Write("\n TestClass execution has ended! \n", TextType.TestClassName);
             }
 
             WriteSummary(testClass.GetType().Name, successfulTests, failedTests);
@@ -73,7 +77,7 @@ namespace EasyAutomation.AutomationFramework.Test
 
         private void WriteSummary(string testClassName, ushort numberOfSuccessfulTests, ushort numberOfFailedTests)
         {
-            Log.Write($"Summary : {testClassName}: ", TextType.TestName);
+            Log.Write($"Summary : {testClassName}: ", TextType.TestClassName);
             Log.Write($"Successful tests: {numberOfSuccessfulTests}", TextType.SuccessfulAssertion);
             Log.Write($"Failed tests: {numberOfFailedTests}", TextType.FatalError);
         }

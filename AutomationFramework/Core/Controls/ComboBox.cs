@@ -1,10 +1,5 @@
 ﻿using EasyAutomation.AutomationFramework.Logging;
 using EasyAutomation.AutomationFramework.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Automation;
 
 namespace EasyAutomation.AutomationFramework.Core.Controls
@@ -19,11 +14,13 @@ namespace EasyAutomation.AutomationFramework.Core.Controls
 
         public string Value(uint timeLimit = 5000)
         {
+            Log.Write($"Getting value of combobox...", TextType.SuccessfulArrangement);
             return Arrange<string>.GetProperty(RawElement, ValuePattern.ValueProperty, timeLimit);
         }
 
         public bool IsReadOnly(uint timeLimit = 5000)
         {
+            Log.Write($"Getting Is ReadOnly value of combobox...", TextType.SuccessfulArrangement);
             return Arrange<bool>.GetProperty(RawElement, ValuePattern.IsReadOnlyProperty, timeLimit);
         }
 
@@ -33,6 +30,7 @@ namespace EasyAutomation.AutomationFramework.Core.Controls
 
         public bool IsExpanded(uint timeLimit = 5000)
         {
+            Log.Write($"Getting IsExpanded value of combobox...", TextType.SuccessfulArrangement);
             var state = Arrange<ExpandCollapseState>.GetProperty(
                 RawElement, ExpandCollapsePattern.ExpandCollapseStateProperty, timeLimit);
 
@@ -61,6 +59,8 @@ namespace EasyAutomation.AutomationFramework.Core.Controls
             var targetItem = ArrangeControl.GetElement(() => list.RawElement.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByName(target)), timeLimit).AsListItem();
 
             Act.Fire(() => targetItem.Select(timeLimit), targetItem, false, timeLimit);
+
+            Log.Write($"Selecting {target} on combobox was done!", TextType.ActEnded);
         }
 
     }

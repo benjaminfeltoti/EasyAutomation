@@ -1,5 +1,6 @@
 ﻿using EasyAutomation.AutomationFramework.Logging;
 using EasyAutomation.AutomationFramework.Utility;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Automation;
 
@@ -55,50 +56,40 @@ namespace EasyAutomation.AutomationFramework.Core
             SetFocus();
             var rectangle = BoundingRectangle(timeout);            
             Act.Fire(() => Mouse.Click((uint)(rectangle.Left + rectangle.Width / 2), (uint)(rectangle.Top + rectangle.Height / 2)), this, waitEnables, timeout);
-            Log.Write("Click was done!", TextType.ActEnded);
+            Log.Write("Click on element was done!", TextType.ActEnded);
         }
-        /*
-        public bool TryGetClickablePoint(out Point point)
-        {
-            //TODO
-            point = new Point();
-
-            return m_Root.TryGetClickablePoint(out point);
-        }
-
-        public bool TryGetCurrentPattern(AutomationPattern pattern, out object patternObject)
-        {
-            //TODO
-            patternObject = null;
-
-            return m_Root.TryGetCurrentPattern(pattern, out patternObject);
-        }
-        */
+       
         public ControlElement FindChildByName(string name, uint timeout = 5000)
         {
+            Log.Write($"Searching for child, given name: { name }", TextType.ActStarted);
             return ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByName(name)), timeout);            
         }
 
         public ControlElement FindDescendantByName(string name, uint timeout = 5000)
         {
+            Log.Write($"Searching for descendant, given name: { name }", TextType.ActStarted);
             return ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Descendants, PropertyConditionFactory.GetConditionByName(name)), timeout);            
         }
 
         public ControlElement FindChildByAutomationId(string automationId, uint timeout = 5000)
         {
+            Log.Write($"Searching for child, given AutomationId: { automationId }", TextType.ActStarted);
             return ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByAutomationId(automationId)), timeout);
         }
 
         public ControlElement FindDescendantByAutomationId(string automationId, uint timeout = 5000)
         {
+            Log.Write($"Searching for descendant, given AutomationId: { automationId }", TextType.ActStarted);
             return ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Descendants, PropertyConditionFactory.GetConditionByAutomationId(automationId)), timeout);
         }
 
         public ControlElement FindChildByControlType(ControlType controlType, uint timeout = 5000)
         {
+            Log.Write($"Searching for child, given ControlType: { controlType.ProgrammaticName }", TextType.ActStarted);
             return ArrangeControl.GetElement(() => m_Root.FindFirst(TreeScope.Children, PropertyConditionFactory.GetConditionByControlType(controlType)), timeout);
         }
                 
+        /* Not supported
         public ControlElement[] FindAllChildren()
         {
             AutomationElementCollection childrenRawCollection = m_Root.FindAll(
@@ -122,7 +113,7 @@ namespace EasyAutomation.AutomationFramework.Core
             }
 
             return null;
-        }
+        }*/
 
         /// <summary>
         /// Returns the core informations of this object.
@@ -130,8 +121,16 @@ namespace EasyAutomation.AutomationFramework.Core
         /// <returns>Returns Name, AutomationId, LocalizedControlType</returns>
         public string GetControlInfo(uint timeLimit = 5000)
         {
-            // TODO : Get theese with get properties!
-            return $"Name: {Name(timeLimit)} AutomationId: {AutomationId(timeLimit)} ControlType: {LocalizedControlType(timeLimit)}";
+            Log.Write("Getting information from current element...", TextType.ActStarted);
+            var automationElementInfos = Arrange<List<KeyValuePair<AutomationProperty, object>>>.GetProperties(
+                    this.RawElement, new AutomationProperty[3] { AutomationElement.NameProperty, AutomationElement.AutomationIdProperty,
+                        AutomationElement.ControlTypeProperty }, timeLimit);
+
+            var name = ArrangeControl.GetPropertyFromList(automationElementInfos, AutomationElement.NameProperty);
+            var automationId = ArrangeControl.GetPropertyFromList(automationElementInfos, AutomationElement.AutomationIdProperty);
+            var localizedControlType = ArrangeControl.GetPropertyFromList(automationElementInfos, AutomationElement.LocalizedControlTypeProperty);
+
+            return $"Name: {name} AutomationId: {automationId} ControlType: {localizedControlType}";
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using System.Threading;
 
 namespace EasyAutomation.AutomationFramework.Logging
 {
@@ -67,18 +66,20 @@ namespace EasyAutomation.AutomationFramework.Logging
         {
             switch (textType)
             {
-                case TextType.Error:
-                case TextType.FatalError:
                 case TextType.SuccessfulArrangement:
                 case TextType.SuccessfulAct:
                 case TextType.SuccessfulAssertion:
-                    return 3;
+                    return 5;
                 case TextType.ActStarted:
                 case TextType.ActEnded:
-                    return 2;
+                case TextType.Error:
+                case TextType.FatalError:
+                case TextType.Warning:
+                    return 4;
                 case TextType.Passed:
                 case TextType.TestName:
-                case TextType.Warning:
+                    return 3;
+                case TextType.TestClassName:
                     return 1;
                 case TextType.Default:
                 default:
@@ -99,18 +100,19 @@ namespace EasyAutomation.AutomationFramework.Logging
                     break;
                 case TextType.SuccessfulArrangement:
                 case TextType.SuccessfulAct:
+                case TextType.SuccessfulAssertion:
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                     break;
-                case TextType.SuccessfulAssertion:
                 case TextType.Passed:
-                case TextType.ActStarted:
-                case TextType.ActEnded:
                     Console.ForegroundColor = ConsoleColor.Green;
                     break;
+                case TextType.ActStarted:
+                case TextType.ActEnded:
                 case TextType.TestName:
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     break;
                 case TextType.Warning:
+                case TextType.TestClassName:
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     break;
                 case TextType.Default:

@@ -3,6 +3,9 @@ using System.Windows.Automation;
 
 namespace EasyAutomation.AutomationFramework.Core.Controls
 {
+    /// <summary>
+    /// Use ControlElement as Checkbox. Adds Check, Uncheck funcionality and IsChecked property.
+    /// </summary>
     public class CheckBox : ControlElement
     {
         public CheckBox(AutomationElement root) : base(root) 
@@ -12,7 +15,8 @@ namespace EasyAutomation.AutomationFramework.Core.Controls
         #region TogglePattern
 
         public bool IsChecked(uint timeLimit = 5000)
-        { 
+        {
+            Log.Write($"Getting value of checkbox...", TextType.SuccessfulArrangement);
             var toggleState = Arrange<ToggleState>.GetProperty(RawElement, TogglePattern.ToggleStateProperty, timeLimit);
 
             return toggleState == ToggleState.On;

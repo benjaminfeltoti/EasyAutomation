@@ -1,6 +1,7 @@
 ﻿using EasyAutomation.AutomationFramework.Logging;
 using EasyAutomation.AutomationFramework.Test;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -62,10 +63,14 @@ namespace EasyAutomation.AutomationFramework.Core
 
             if (taskIsSuccessfull)
             {
-                // TODO : Not safe, use get properties
-                var name = (string)result.GetCurrentPropertyValue(AutomationElement.NameProperty, false);
-                var automationId = (string)result.GetCurrentPropertyValue(AutomationElement.AutomationIdProperty, false);
-                var localizedControlType = (string)result.GetCurrentPropertyValue(AutomationElement.LocalizedControlTypeProperty, false);
+                // Read data from result automation element, so log can be written.
+                var automationElementInfos = Arrange<List<KeyValuePair<AutomationProperty, object>>>.GetProperties(
+                    result, new AutomationProperty[3] { AutomationElement.NameProperty, AutomationElement.AutomationIdProperty,
+                        AutomationElement.ControlTypeProperty }, timeLimit);
+
+                var name = GetPropertyFromList(automationElementInfos, AutomationElement.NameProperty);
+                var automationId = GetPropertyFromList(automationElementInfos, AutomationElement.AutomationIdProperty);
+                var localizedControlType = GetPropertyFromList(automationElementInfos, AutomationElement.LocalizedControlTypeProperty);
 
                 Log.Write($"Successful Arrangement : Successful arrangement of new ControlElement :" +
                         $" Name: {name} AutomationId: {automationId} ControlType: {localizedControlType}", TextType.SuccessfulArrangement, true);
@@ -76,6 +81,13 @@ namespace EasyAutomation.AutomationFramework.Core
 
             Log.Write(errorMessageResult, TextType.FatalError);
             throw new Exception(errorMessageResult);
+        }
+
+        internal static string GetPropertyFromList(List<KeyValuePair<AutomationProperty, object>> results, AutomationProperty property)
+        {
+            var value = results.Exists(k => k.Key == property) ? results.Find(k => k.Key == property).Value : "";
+
+            return value is string ? (string)value : "???";
         }
 
         private static void CleanUpTask(Task task, CancellationTokenSource taskCancellationToken)
