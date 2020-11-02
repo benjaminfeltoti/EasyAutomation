@@ -7,7 +7,7 @@ namespace ExampleWinformsApplication.UIASupport
     [ComVisible(true)]
     [Guid("84823B08-3DCC-4313-B3CE-1288D77FDB9C")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    interface IExampleAppPatternProvider
+    public interface IExampleAppPatternProvider
     {
         void SetInputPath([MarshalAs(UnmanagedType.LPWStr)] string path);
     }
