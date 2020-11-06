@@ -15,11 +15,11 @@ namespace ExampleWinformsApplication
 
         public ExamleApplication()
         {
+            DataBaseFile.Path = "database.txt";
             InitializeComponent();
 
             ViewSelectionComboBox.SelectedIndex = 0;
-            LanguageComboBox.SelectedIndex = 0;
-            DataBaseFile.Path = "database.txt";
+            LanguageComboBox.SelectedIndex = 0;            
             EditLanguageComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
@@ -74,7 +74,7 @@ namespace ExampleWinformsApplication
         {
             using (StreamWriter streamWriter = new StreamWriter(DataBaseFile.Path, true))
             {
-                streamWriter.Write($"\n{ FirstNameTextBox.Text } { LastNameTextBox.Text } { (MaleRadioButton.Checked ? "Male" : "Female") } { EMailAdressTextBox.Text } { LanguageComboBox.SelectedItem } { SubscribeNewsletterCheckBox.Checked }");
+                streamWriter.Write($"\n{ FirstNameTextBox.Text };{ LastNameTextBox.Text };{ (MaleRadioButton.Checked ? "Male" : "Female") };{ EMailAdressTextBox.Text };{ LanguageComboBox.SelectedItem };{ SubscribeNewsletterCheckBox.Checked }");
             }
         }
 
@@ -151,11 +151,16 @@ namespace ExampleWinformsApplication
 
         private void DataBaseListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (DataBaseListBox.SelectedItem == null)
+            {
+                return;
+            }
+
             var selectedItem = DataBaseListBox.SelectedItem.ToString();
 
             indexOfSelection = DataBaseListBox.Items.IndexOf(selectedItem);
             EditForm.Enabled = true;
-            var data = selectedItem.Split(' ');
+            var data = selectedItem.Split(';');
 
             EditFormLoadData(data);
         }
@@ -226,7 +231,7 @@ namespace ExampleWinformsApplication
 
         private string ReadDataFromEditForm()
         {
-            return $"{ EditFirstNameTextBox.Text } { EditLastNameTextBox.Text } { (EditMaleRadioButton.Checked ? "Male" : "Female") } { EditEMailAdressTextBox.Text } { EditLanguageComboBox.SelectedItem } { SubscribeNewsletterCheckBox.Checked }";
+            return $"{ EditFirstNameTextBox.Text };{ EditLastNameTextBox.Text };{ (EditMaleRadioButton.Checked ? "Male" : "Female") };{ EditEMailAdressTextBox.Text };{ EditLanguageComboBox.SelectedItem };{ SubscribeNewsletterCheckBox.Checked }";
         }
 
         #endregion

@@ -12,6 +12,10 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Views
 
         public ControlElement RootWindow => m_Root ?? (m_Root = Desktop.Root.FindChildByAutomationId("ExamleApplication"));
 
+        public ComboBox FormSelectorCombobox(uint timeout = 5000) => RootWindow.FindDescendantByAutomationId("ViewSelectionComboBox", timeout).AsComboBox();
+
+        #region RegistrationForm
+
         public Button SubmitButton(uint timeout = 5000) => m_Button ?? (m_Button = RootWindow.FindDescendantByName("SubmitButton", timeout).AsButton());
 
         public TextBox FirstNameTextBox(uint timeout = 5000) => RootWindow.FindDescendantByName("FirstNameTextBox", timeout).AsTextBox();
@@ -35,5 +39,7 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Views
         public Button SubmitWindowYesButton(uint timeout = 5000) => SubmitWindow(timeout).FindChildByName("Yes", timeout).AsButton();
 
         public CustomLabelWithPattern CustomLabel(uint timeout = 5000) => RootWindow.FindDescendantByName("LastNameLabel", timeout).AsCustomLabelWithPattern();
+
+        #endregion
     }
 }

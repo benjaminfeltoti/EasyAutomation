@@ -50,10 +50,8 @@
   <ItemGroup>
     <Compile Include="ExampleWinformsApp\Tests\ExampleWinformsApplicationTests.cs" />
     <Compile Include="ExampleWinformsApp\Views\ExampleWinformsApplicationViews.cs" />
-    <Compile Include="CalculatorApp\Views\StandardCalculatorView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CalculatorApp\Tests\StandardCalculatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -6,28 +6,33 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
 {
     public class ExampleWinformsApplicationTests : ITestClass
     {
-        ITest[] ITestClass.Tests => new ITest[1] { new Test(Setup, ThisIsMyFirstTest, CleanUp) };
+        ExampleWinformsApplicationViews view;
 
-        public void Setup()
-        { }
+        ITest[] ITestClass.Tests => new ITest[1] { new Test(RegistrationFormTestSetup, RegistrationFormTest, CleanUp) };
+
+        public void RegistrationFormTestSetup()
+        {
+            view = new ExampleWinformsApplicationViews();
+            view.FormSelectorCombobox().Select("Registration form");
+        }
 
         public void CleanUp()
-        { }
+        {
+            view = null;
+        }
 
-        public void ThisIsMyFirstTest()
-        {            
-            var view = new ExampleWinformsApplicationViews();
-
+        public void RegistrationFormTest()
+        {
             view.CustomLabel().SetDatabaseConnectionPath("NEWPATH.txt");
-            view.FirstNameTextBox().Write("Tamás");
-            view.LastNameTextBox().Write("János");
+            view.FirstNameTextBox().Write("Adél");
+            view.LastNameTextBox().Write("Adrienn");
             view.FemaleRadioButton().Select();
-            view.EmailTextBox().Write("janos.tamas@aaa.hu");
+            view.EmailTextBox().Write("adel.adrienn@ujmail.hu");
             view.LanguageComboBox().Select("German");
             view.NewsLetterCheckBox().UnCheck();
             view.SubmitButton().Click();
 
-            Assert.Equal(view.SubmitWindowText().Name, $"Is your data correct? \n Name : Tamás János \n E-mail adress : janos.tamas@aaa.hu");
+            Assert.Equal(view.SubmitWindowText().Name, $"Is your data correct? \n Name : Adél Adrienn \n E-mail adress : adel.adrienn@ujmail.hu");
 
             view.SubmitWindowYesButton().Click();
 
