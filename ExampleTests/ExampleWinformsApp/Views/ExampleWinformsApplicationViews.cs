@@ -1,45 +1,36 @@
 ﻿using EasyAutomation.AutomationFramework.Core;
 using EasyAutomation.AutomationFramework.Core.Controls;
+using EasyAutomation.ExampleTests.ExampleWinformsApp.Views;
 using System.Windows.Automation;
 
 namespace EasyAutomation.ExampleTests.CalculatorApp.Views
 {
     public class ExampleWinformsApplicationViews
     {
-        private ControlElement m_Root;
+        private ControlElement root;
 
-        private Button m_Button;
+        private RegistrationFormView registrationFormView;
 
-        public ControlElement RootWindow => m_Root ?? (m_Root = Desktop.Root.FindChildByAutomationId("ExamleApplication"));
+        private EditFormView editFormView;
+
+        public ControlElement RootWindow => root ?? (root = Desktop.Root.FindChildByAutomationId("ExamleApplication"));
 
         public ComboBox FormSelectorCombobox(uint timeout = 5000) => RootWindow.FindDescendantByAutomationId("ViewSelectionComboBox", timeout).AsComboBox();
 
-        #region RegistrationForm
+        public RegistrationFormView RegistrationForm => registrationFormView ?? (registrationFormView = new RegistrationFormView(RootWindow));
 
-        public Button SubmitButton(uint timeout = 5000) => m_Button ?? (m_Button = RootWindow.FindDescendantByName("SubmitButton", timeout).AsButton());
+        public EditFormView EditForm => editFormView ?? (editFormView = new EditFormView(RootWindow));
 
-        public TextBox FirstNameTextBox(uint timeout = 5000) => RootWindow.FindDescendantByName("FirstNameTextBox", timeout).AsTextBox();
+        public Button RefreshButton(uint timeout = 5000) => RootWindow.FindDescendantByAutomationId("RefreshButton", timeout).AsButton();
 
-        public TextBox LastNameTextBox(uint timeout = 5000) => RootWindow.FindDescendantByName("LastNameTextBox", timeout).AsTextBox();
+        public ListItem AnnaTesztListItem(uint timeout = 5000) => RootWindow.FindDescendantByName("Anna;Teszt;Female;Teszt.elek@ujmail.hu;German;False", timeout).AsListItem();
 
-        public TextBox EmailTextBox(uint timeout = 5000) => RootWindow.FindDescendantByName("EMailAdressTextBox", timeout).AsTextBox();
+        public ListItem BenjaminListItem(uint timeout = 5000) => RootWindow.FindDescendantByName("Benjamin;Feltoti;Male;benjamin.feltoti@gmail.com;Hungarian;True", timeout).AsListItem();
 
-        public RadioButton MaleRadioButton(uint timeout = 5000) => RootWindow.FindDescendantByAutomationId("MaleRadioButton", timeout).AsRadioButton();
-
-        public RadioButton FemaleRadioButton(uint timeout = 5000) => RootWindow.FindDescendantByAutomationId("FemaleRadioButton", timeout).AsRadioButton();
-
-        public ComboBox LanguageComboBox(uint timeout = 5000) => RootWindow.FindDescendantByAutomationId("LanguageComboBox", timeout).AsComboBox();
-
-        public CheckBox NewsLetterCheckBox(uint timeout = 5000) => RootWindow.FindDescendantByAutomationId("SubscribeNewsletterCheckBox", timeout).AsCheckBox();
-
-        public ControlElement SubmitWindow(uint timeout = 5000) =>  RootWindow.FindChildByControlType(ControlType.Window, timeout);
+        public ControlElement SubmitWindow(uint timeout = 5000) => RootWindow.FindChildByControlType(ControlType.Window, timeout);
 
         public ControlElement SubmitWindowText(uint timeout = 5000) => SubmitWindow(timeout).FindChildByControlType(ControlType.Text, timeout);
 
         public Button SubmitWindowYesButton(uint timeout = 5000) => SubmitWindow(timeout).FindChildByName("Yes", timeout).AsButton();
-
-        public CustomLabelWithPattern CustomLabel(uint timeout = 5000) => RootWindow.FindDescendantByName("LastNameLabel", timeout).AsCustomLabelWithPattern();
-
-        #endregion
     }
 }

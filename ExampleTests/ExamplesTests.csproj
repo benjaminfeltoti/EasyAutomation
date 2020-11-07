@@ -48,8 +48,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExampleWinformsApp\Tests\ExampleWinformsApplicationTests.cs" />
+    <Compile Include="ExampleWinformsApp\Tests\ExampleWinformsAppTests.cs" />
+    <Compile Include="ExampleWinformsApp\Views\EditFormView.cs" />
     <Compile Include="ExampleWinformsApp\Views\ExampleWinformsApplicationViews.cs" />
+    <Compile Include="ExampleWinformsApp\Views\RegistrationFormView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

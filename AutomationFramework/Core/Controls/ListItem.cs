@@ -23,23 +23,26 @@ namespace EasyAutomation.AutomationFramework.Core.Controls
 
         #region SelectionItemPattern
 
-        public bool IsSelected(uint timeLimit = 5000)
+        public bool IsSelected(uint timeout = 5000)
         {
             Log.Write("Getting IsSelected value...", TextType.ActStarted);
-            return Arrange<bool>.GetProperty(RawElement, SelectionItemPattern.IsSelectedProperty, timeLimit);
+            return Arrange<bool>.GetProperty(RawElement, SelectionItemPattern.IsSelectedProperty, timeout);
         }
 
-        public void Select(uint timeLimit = 5000)
+        public void Select(uint timeout = 5000)
         {
-            Log.Write("Selecting list item...", TextType.ActStarted);
-            var pattern = Arrange<SelectionItemPattern>.GetPattern(RawElement, SelectionItemPattern.Pattern, timeLimit);
+            SetFocus(timeout);
 
-            if (IsOffScreen(timeLimit))
+            Log.Write("Selecting list item...", TextType.ActStarted);
+            var pattern = Arrange<SelectionItemPattern>.GetPattern(RawElement, SelectionItemPattern.Pattern, timeout);
+
+            if (IsOffScreen(timeout))
             {
-                ScrollToElement(timeLimit);
+                ScrollToElement(timeout);
             }
 
-            Act.Fire(() => pattern.Select(), this, true, timeLimit);
+            Act.Fire(() => pattern.Select(), this, true, timeout);
+            Log.Write("Selecting list item was done!", TextType.ActEnded);
         }
 
         #endregion

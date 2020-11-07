@@ -34,7 +34,9 @@ namespace EasyAutomation.AutomationFramework.Core
                                     {
                                         automationElement = predicate.Invoke();
                                     }
-                                    catch (COMException e)
+                                    catch (COMException)
+                                    { }
+                                    catch (UnauthorizedAccessException)
                                     { }
                                 }
                                 , new CancellationTokenSource(SettingsConstants.ApplicationResponseTimePingingIntervalForElementSearch).Token);

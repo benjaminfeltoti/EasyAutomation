@@ -9,7 +9,7 @@ namespace ExampleWinformsApplication
     internal class ValidatorTextBox : TextBox
     {
         internal string AccessibilityHelp;
-        internal bool IsValid = false;
+        internal bool IsValid = true;
 
         public ValidatorTextBox() : base()
         {

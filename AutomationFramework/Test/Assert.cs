@@ -99,5 +99,30 @@ namespace EasyAutomation.AutomationFramework.Test
             Log.Write($"ERROR : AssertionFailed : Equal : Asserting that arranged values are equal has failed! Expected value: {value.ToString()} But it was: {resultValue}", TextType.Failed);
             throw new Exception("ERROR : AssertionFailed : Equal : Asserting that arranged values are equal has failed!");
         }
+
+        public static void Equal<T>(Func<T> predicate, T value, uint timeout = 5000, uint checkInterval = 300)
+        {
+            bool predicateEqualsValue = false;
+            var startTime = DateTime.Now;
+            var timeoutLimit = (double)timeout;
+            string resultValue = "";
+
+            while (DateTime.Now.Subtract(startTime).TotalMilliseconds < timeoutLimit && predicateEqualsValue == false)
+            {
+                var result = predicate.Invoke();
+                resultValue = result.ToString();
+                predicateEqualsValue = result.Equals(value);
+                Thread.Sleep((int)checkInterval);
+            }
+
+            if (predicateEqualsValue)
+            {
+                Log.Write($"Successful Assertion : Equal : Successfully asserted that predicate equals {value.ToString()}!", TextType.SuccessfulAssertion);
+                return;
+            }
+
+            Log.Write($"ERROR : AssertionFailed : Equal : Asserting that arranged values are equal has failed! Expected value: {value.ToString()} But it was: {resultValue}", TextType.Failed);
+            throw new Exception("ERROR : AssertionFailed : Equal : Asserting that arranged values are equal has failed!");
+        }
     }
 }

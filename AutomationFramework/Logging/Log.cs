@@ -18,6 +18,7 @@ namespace EasyAutomation.AutomationFramework.Logging
         {
             var uniqueFileName = MakeFileNameUnique(fileName);
             latestFileName = uniqueFileName + fileType;
+            stringBuilder = new StringBuilder();
 
             using (StreamWriter streamWriter = new StreamWriter(latestFileName))
             {
@@ -27,7 +28,7 @@ namespace EasyAutomation.AutomationFramework.Logging
 
         public static void CloseLog()
         {
-            using (StreamWriter streamWriter = new StreamWriter(latestFileName, true))
+            using (StreamWriter streamWriter = new StreamWriter(latestFileName, true) { AutoFlush = true })
             {
                 streamWriter.WriteLine(stringBuilder.ToString());
             }

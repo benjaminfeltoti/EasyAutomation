@@ -63,7 +63,7 @@
             this.EditMaleRadioButton = new System.Windows.Forms.RadioButton();
             this.EditFemaleRadioButton = new System.Windows.Forms.RadioButton();
             this.EditGenderLabel = new System.Windows.Forms.Label();
-            this.EditLastNameLabel = new System.Windows.Forms.Label();
+            this.EditLastNameLabel = new CustomLabelWithPattern();
             this.EditLastNameTextBox = new System.Windows.Forms.TextBox();
             this.EditFirstNameTextBox = new System.Windows.Forms.TextBox();
             this.EditFirstNameLabel = new System.Windows.Forms.Label();
@@ -590,7 +590,7 @@
         private System.Windows.Forms.RadioButton EditMaleRadioButton;
         private System.Windows.Forms.RadioButton EditFemaleRadioButton;
         private System.Windows.Forms.Label EditGenderLabel;
-        private System.Windows.Forms.Label EditLastNameLabel;
+        private CustomLabelWithPattern EditLastNameLabel;
         private System.Windows.Forms.TextBox EditLastNameTextBox;
         private System.Windows.Forms.TextBox EditFirstNameTextBox;
         private System.Windows.Forms.Label EditFirstNameLabel;
