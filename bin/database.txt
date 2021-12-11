@@ -1,0 +1,3 @@
+Adel;Feltoti;Female;adelfeltoti@gmail.com;Hungarian;True
+Valos;Janos;Male;Janos.Valos@mail.hu;German;True
+Valos;Jeno;Male;Jeno.Valos@mail.com;German;True
