@@ -3,7 +3,9 @@ using EasyAutomation.AutomationFramework.Logging;
 using EasyAutomation.AutomationFramework.Test;
 using EasyAutomation.ExampleTests.CalculatorApp.Views;
 using EasyAutomation.ExampleTests.ExampleWinformsApp.Views;
+using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
@@ -16,8 +18,28 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
 
         EditFormView EditForm => applicationView.EditForm;
 
-        string pathOfCustomTxt = "D:\\+Szakdolgozat\\EasyAutomation\\EasyAutomation\\ExampleWinformsApplication\\bin\\x64\\Debug\\NEWPATH.txt";
+        string m_BuildPath;
 
+        string BuildPath
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(m_BuildPath))
+                {
+                    return m_BuildPath;
+                }
+
+                string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+                UriBuilder uri = new UriBuilder(codeBase);
+                string path = Uri.UnescapeDataString(uri.Path);
+                m_BuildPath = Path.GetDirectoryName(path);
+                return m_BuildPath;
+            }
+        }
+
+        string pathOfCustomTxt => BuildPath + @"\NEWPATH.txt";
+
+        // Define tests to execute
         ITest[] ITestClass.Tests => new ITest[3]
         {
             new Test(TestSetup, ValidatorTextBoxTest, ValidatorTextBoxTestCleanUp),
@@ -28,7 +50,7 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Tests
         public void TestSetup()
         {
             TestApplication.StartOrAttach(new TestApplicationInformation("ExampleWinformsApplication.exe", "ExampleWinformsApplication",
-                "D:\\+Szakdolgozat\\EasyAutomation\\EasyAutomation\\ExampleWinformsApplication\\bin\\x64\\Debug"));
+                BuildPath));
 
             applicationView = new ExampleWinformsApplicationViews();
         }
@@ -129,7 +151,7 @@ Elek;Teszt;Male;teszt.elek@mail.hu;German;True");
 
             EditForm.CustomLabel().SetDatabaseConnectionPath("NEWPATH.txt");
             applicationView.RefreshButton().Click();
-
+            
             Assert.IsFalse(EditForm.EditButton(10000).IsEnabled, 10000, 1000);
             Assert.IsFalse(EditForm.FirstNameTextBox().IsEnabled);
             Assert.IsFalse(EditForm.LastNameTextBox().IsEnabled);
@@ -162,7 +184,7 @@ Elek;Teszt;Male;teszt.elek@mail.hu;German;True");
             EditForm.LanguageComboBox().Select("Hungarian");
             EditForm.NewsLetterCheckBox().Check();
             EditForm.EditButton().Click();
-
+            
             applicationView.SubmitWindowYesButton().Click();
             applicationView.RootWindow.FindDescendantByName("OK", 25000).AsButton().Click();
 
@@ -199,7 +221,7 @@ Elek;Teszt;Male;teszt.elek@mail.hu;German;True
         public void SetupClass()
         {
             TestApplication.StartOrAttach(new TestApplicationInformation("ExampleWinformsApplication.exe", "ExampleWinformsApplication",
-                "D:\\+Szakdolgozat\\EasyAutomation\\EasyAutomation\\ExampleWinformsApplication\\bin\\x64\\Debug"));
+                BuildPath));
         }
     }
 }

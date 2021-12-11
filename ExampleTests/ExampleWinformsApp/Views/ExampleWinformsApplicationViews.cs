@@ -1,6 +1,7 @@
 ﻿using EasyAutomation.AutomationFramework.Core;
 using EasyAutomation.AutomationFramework.Core.Controls;
 using EasyAutomation.ExampleTests.ExampleWinformsApp.Views;
+using System.Globalization;
 using System.Windows.Automation;
 
 namespace EasyAutomation.ExampleTests.CalculatorApp.Views
@@ -31,6 +32,8 @@ namespace EasyAutomation.ExampleTests.CalculatorApp.Views
 
         public ControlElement SubmitWindowText(uint timeout = 5000) => SubmitWindow(timeout).FindChildByControlType(ControlType.Text, timeout);
 
-        public Button SubmitWindowYesButton(uint timeout = 5000) => SubmitWindow(timeout).FindChildByName("Yes", timeout).AsButton();
+        public Button SubmitWindowYesButton(uint timeout = 5000) => CultureInfo.CurrentUICulture.Name == "hu-HU" ? 
+            SubmitWindow(timeout).FindChildByName("Igen", timeout).AsButton():
+            SubmitWindow(timeout).FindChildByName("Yes", timeout).AsButton();
     }
 }
